@@ -50,13 +50,14 @@ define(function (require, exports, module) {
         //绑定控件事件
         bindUI: function () {
             var that = this, renderData = that.renderData, render = renderData.render;
-            eventDom.delegate(document, "mousemove", render, that.handleMouseMoveInternal
+            eventDom.delegate(document, "mouseenter", render, that.handleCreateZoomInternal
                 , that);
-            eventDom.delegate(document, "mousemove", "." + that.zoomClass, that.handleMouseMoveInternal
+            eventDom.delegate(document, "mousemove", "body", that.handleMouseMoveInternal
                 , that);
-            eventDom.delegate(document, "mouseout", render, that.handleMouseOutInternal
+            eventDom.delegate(document, "mouseleave", render, that.handleMouseOutInternal
                 , that);
         },
+
         //检查参数输入是否正确
         validRenderData: function () {
             var that = this, renderData = that.renderData;
@@ -69,19 +70,23 @@ define(function (require, exports, module) {
             }
             return true;
         },
+        handleCreateZoomInternal: function () {
+            var that = this, zoomClass = that.zoomClass, zoom = node.all("." + zoomClass);
+            zoom.show();
+        },
         //鼠标移入
         handleMouseMoveInternal: function (e) {
-            var that = this, zoomClass = that.zoomClass, zoomClasszoomOffset = that.getZoomOffset(e), zoomViewOffset = that.getZoomViewOffset(e), zoom = node.all("." + zoomClass);
+            var target = node(e.target), that = this, renderData = that.renderData, zoomClass = that.zoomClass, zoomClasszoomOffset = that.getZoomOffset(e), zoomViewOffset = that.getZoomViewOffset(e), zoom = node.all("." + zoomClass);
             zoom.offset({
-                left: zoomClasszoomOffset.left,
-                top: zoomClasszoomOffset.top
-            }).show();
+                left: zoomClasszoomOffset.left - 25,
+                top: zoomClasszoomOffset.top - 25
+            });
             console.log(e + "---------  鼠标移入事件启动");
         },
         //鼠标移出
         handleMouseOutInternal: function (e) {
-            var that = this;
-            node.all("." + that.zoomClass).remove();
+            var that = this, zoomClass = that.zoomClass, zoom = node.all("." + zoomClass);
+            //node.all("." + that.zoomClass).remove();
             console.log(e + "---------  鼠标移出事件启动");
 
         },
