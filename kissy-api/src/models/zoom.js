@@ -28,6 +28,8 @@ define(function (require, exports, module) {
         zoomClass: "web-api-zoom",
         zoomViewClass: "web-api-zoomview",
         xclass: 'zoom',
+        isFoucs : false,
+        renderOffset : {},
         //生成DOM
         beforeCreateDom: function () {
             console.log("-------生成zoom   zoomview-----------");
@@ -50,11 +52,14 @@ define(function (require, exports, module) {
         //绑定控件事件
         bindUI: function () {
             var that = this, renderData = that.renderData, render = renderData.render;
-            eventDom.delegate(document, "mouseenter", render, that.handleCreateZoomInternal
+            eventDom.on(document, "mousemove", that.handleMouseMoveInternal
                 , that);
-            eventDom.delegate(document, "mousemove", "body", that.handleMouseMoveInternal
+            eventDom.on(render, "mouseenter", function(){
+                    console.log(true)
+                    return false;
+                }
                 , that);
-            eventDom.delegate(document, "mouseleave", render, that.handleMouseOutInternal
+            eventDom.on(render, "mouseleave", that.handleMouseOutInternal
                 , that);
         },
 
@@ -70,39 +75,41 @@ define(function (require, exports, module) {
             }
             return true;
         },
-        handleCreateZoomInternal: function () {
-            var that = this, zoomClass = that.zoomClass, zoom = node.all("." + zoomClass);
+        handlerZoomShowInternal : function(){
+            var that = this,zoomClass = that.zoomClass,zoom = node.all("." + zoomClass);
             zoom.show();
         },
         //鼠标移入
         handleMouseMoveInternal: function (e) {
             var target = node(e.target), that = this, renderData = that.renderData, zoomClass = that.zoomClass, zoomClasszoomOffset = that.getZoomOffset(e), zoomViewOffset = that.getZoomViewOffset(e), zoom = node.all("." + zoomClass);
+            //if(node(e.originalEvent.target).attr("data-webapi") != "zoom") {
+            //    zoom.hide();
+            //}
+            left = zoomClasszoomOffset.left - 25;
+            if(left > 150 ) left =150;
             zoom.offset({
-                left: zoomClasszoomOffset.left - 25,
+                left:left ,
                 top: zoomClasszoomOffset.top - 25
-            });
-            console.log(e + "---------  鼠标移入事件启动");
+            }).show();
+
         },
         //鼠标移出
         handleMouseOutInternal: function (e) {
             var that = this, zoomClass = that.zoomClass, zoom = node.all("." + zoomClass);
             //node.all("." + that.zoomClass).remove();
-            console.log(e + "---------  鼠标移出事件启动");
 
+            console.log(false)
         },
         //获取计算后的放大镜位置
         getZoomOffset: function (e) {
-            console.log("--------------获取计算后的放大镜位置-------------");
             return {"left": e.clientX, "top": e.clientY};
         },
         //获取计算后的放大镜视图位置
         getZoomViewOffset: function (e) {
-            console.log("-------------获取计算后的放大镜视图位置--------------");
             return {"left": 0, "top": 0};
         },
         //删除zoom，实际为隐藏，在下次进入图片时显示
         removeZoom: function () {
-            console.log("--------------隐藏zoom-----------------");
         },
         //初始化控件
         render: function () {
