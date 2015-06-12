@@ -28,8 +28,8 @@ define(function (require, exports, module) {
         zoomClass: "web-api-zoom",
         zoomViewClass: "web-api-zoomview",
         xclass: 'zoom',
-        isFoucs : false,
-        renderOffset : {},
+        isFoucs: false,
+        renderOffset: {},
         //生成DOM
         beforeCreateDom: function () {
             console.log("-------生成zoom   zoomview-----------");
@@ -52,15 +52,13 @@ define(function (require, exports, module) {
         //绑定控件事件
         bindUI: function () {
             var that = this, renderData = that.renderData, render = renderData.render;
-            eventDom.on(document, "mousemove", that.handleMouseMoveInternal
-                , that);
-            eventDom.on(render, "mouseenter", function(){
-                    console.log(true)
-                    return false;
-                }
-                , that);
-            eventDom.on(render, "mouseleave", that.handleMouseOutInternal
-                , that);
+            //1.document绑定mouseenter --》 render
+                //创建zoom并绑定全局移动事件，并限定移动范围
+            eventDom.delegate(document,"mouseenter",render,that.handlerZoomShowInternal,that);
+
+
+            //2.zoom绑定mouseleave --》
+            eventDom.delegate(document,"mouseleave","."+that.zoomClass,that.handleMouseOutInternal,that);
         },
 
         //检查参数输入是否正确
@@ -75,9 +73,9 @@ define(function (require, exports, module) {
             }
             return true;
         },
-        handlerZoomShowInternal : function(){
-            var that = this,zoomClass = that.zoomClass,zoom = node.all("." + zoomClass);
-            zoom.show();
+        handlerZoomShowInternal: function () {
+            var that = this, zoomClass = that.zoomClass, zoom = node.all("." + zoomClass);
+            eventDom.delegate(document,"mousemove","body",that.handleMouseMoveInternal,that);
         },
         //鼠标移入
         handleMouseMoveInternal: function (e) {
@@ -85,10 +83,11 @@ define(function (require, exports, module) {
             //if(node(e.originalEvent.target).attr("data-webapi") != "zoom") {
             //    zoom.hide();
             //}
+            console.log(1)
             left = zoomClasszoomOffset.left - 25;
-            if(left > 150 ) left =150;
+            if (left > 190) left = 190;
             zoom.offset({
-                left:left ,
+                left: left,
                 top: zoomClasszoomOffset.top - 25
             }).show();
 
@@ -97,8 +96,9 @@ define(function (require, exports, module) {
         handleMouseOutInternal: function (e) {
             var that = this, zoomClass = that.zoomClass, zoom = node.all("." + zoomClass);
             //node.all("." + that.zoomClass).remove();
-
-            console.log(false)
+            eventDom.undelegate(document,"mousemove","body",that.handleMouseMoveInternal,that);
+            zoom.hide();
+            console.log(2)
         },
         //获取计算后的放大镜位置
         getZoomOffset: function (e) {
