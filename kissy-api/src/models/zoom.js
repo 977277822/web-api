@@ -52,15 +52,9 @@ define(function (require, exports, module) {
         //绑定控件事件
         bindUI: function () {
             var that = this, renderData = that.renderData, render = renderData.render;
-            //1.document绑定mouseenter --》 render
-                //创建zoom并绑定全局移动事件，并限定移动范围
-            eventDom.delegate(document,"mouseenter",render,that.handlerZoomShowInternal,that);
-
-
-            //2.zoom绑定mouseleave --》
-            eventDom.delegate(document,"mouseleave","."+that.zoomClass,that.handleMouseOutInternal,that);
+            eventDom.delegate(document, "mouseenter", render, that.handlerZoomShowInternal, that);
+            eventDom.delegate(document, "mouseleave", "." + that.zoomClass, that.handleMouseOutInternal, that);
         },
-
         //检查参数输入是否正确
         validRenderData: function () {
             var that = this, renderData = that.renderData;
@@ -73,35 +67,32 @@ define(function (require, exports, module) {
             }
             return true;
         },
+        //鼠标进入图片绑定放大镜移动事件
         handlerZoomShowInternal: function () {
             var that = this, zoomClass = that.zoomClass, zoom = node.all("." + zoomClass);
-            eventDom.delegate(document,"mousemove","body",that.handleMouseMoveInternal,that);
+            eventDom.delegate(document, "mousemove", "body", that.handleMouseMoveInternal, that);
         },
-        //鼠标移入
+        //鼠标移动的放大镜定位
         handleMouseMoveInternal: function (e) {
             var target = node(e.target), that = this, renderData = that.renderData, zoomClass = that.zoomClass, zoomClasszoomOffset = that.getZoomOffset(e), zoomViewOffset = that.getZoomViewOffset(e), zoom = node.all("." + zoomClass);
-            //if(node(e.originalEvent.target).attr("data-webapi") != "zoom") {
-            //    zoom.hide();
-            //}
-            console.log(1)
             left = zoomClasszoomOffset.left - 25;
             if (left > 190) left = 190;
             zoom.offset({
                 left: left,
                 top: zoomClasszoomOffset.top - 25
             }).show();
-
         },
-        //鼠标移出
+        //鼠标移出事件
         handleMouseOutInternal: function (e) {
             var that = this, zoomClass = that.zoomClass, zoom = node.all("." + zoomClass);
-            //node.all("." + that.zoomClass).remove();
-            eventDom.undelegate(document,"mousemove","body",that.handleMouseMoveInternal,that);
+            eventDom.undelegate(document, "mousemove", "body", that.handleMouseMoveInternal, that);
             zoom.hide();
-            console.log(2)
         },
         //获取计算后的放大镜位置
         getZoomOffset: function (e) {
+            //检测render坐标位置，如果计算后的位置超过图片坐标位置则保持当前位置。
+
+
             return {"left": e.clientX, "top": e.clientY};
         },
         //获取计算后的放大镜视图位置
