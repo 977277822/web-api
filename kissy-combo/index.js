@@ -5,8 +5,8 @@
 var express = require("express");
 var fs = require("fs");
 var uuid = require('node-uuid');
-
 var app = express();
+
 
 app.get('/*', function (req, res) {
     var originalUrl, relation, tag, filePath, models;
@@ -27,7 +27,11 @@ app.get('/*', function (req, res) {
 });
 
 
-
+/**
+ * 获取模块路径
+ * @param url
+ * @returns {string}
+ */
 function getModels(url) {
     var models = url.substring(0, url.indexOf("??"));
     return models;
