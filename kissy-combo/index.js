@@ -9,14 +9,14 @@ var uuid = require('node-uuid');
 var app = express();
 
 app.get('/', function (req, res) {
-    var originalUrl, relation, tag,filePath;
+    var originalUrl, relation, tag, filePath;
     originalUrl = req.originalUrl;
     if (originalUrl.indexOf("??") != -1) {
         relation = originalUrl.substring(originalUrl.indexOf("??") + 2);
         tag = relation.substring(relation.indexOf("?") + 1);
         relation = relation.replace(["?" + tag], "");
         tag = tag.substring(tag.indexOf("=") + 1);
-        if(!findMapHandle(relation)){
+        if (!findMapHandle(relation)) {
             readyAndConcat(relation, tag);
         }
     }
@@ -56,7 +56,7 @@ var pathMapHandle = function (mapKey, fileName) {
         pathMapJson = JSON.parse(pathMap);
     }
     pathMapJson[mapKey] = fileName;
-    pathMapJson = JSON.stringify(pathMapJson);
+    pathMapJson = JSON.stringify(pathMapJson, null, 2);
     fs.writeFile(pathMapFile, pathMapJson, function (err) {
     });
 }
@@ -65,12 +65,12 @@ var pathMapHandle = function (mapKey, fileName) {
  * @param mapKey
  * @returns {boolean}
  */
-var findMapHandle = function(mapKey){
+var findMapHandle = function (mapKey) {
     var pathMapFile = "pathmap.json";
     pathMap = fs.readFileSync(pathMapFile);
     if (pathMap != "") {
         pathMapJson = JSON.parse(pathMap);
-        if(pathMapJson[mapKey]){
+        if (pathMapJson[mapKey]) {
             return true;
         }
     }
@@ -81,7 +81,7 @@ var findMapHandle = function(mapKey){
  * @param mapKey
  * @returns {*}
  */
-var getMapPath = function(mapKey){
+var getMapPath = function (mapKey) {
     var pathMapFile = "pathmap.json";
     pathMap = fs.readFileSync(pathMapFile);
     if (pathMap != "") {
