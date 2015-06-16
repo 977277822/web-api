@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="../kissy-combo/src/kissy/seed.js" data-config="{combine:true}"></script>
+    <script src="../kissy-combo/src/models/mseed.js"></script>
     <script>
         require.config({
-            base : "http://localhost:3000/",
+            base : "http://localhost:3000/kissy/",
             tag : "20101111"
         });
-        require(["node"], function () {
+        require(["node","event-dom","button","mod/zoom"], function () {
         })
     </script>
 </head>
