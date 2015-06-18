@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2015/6/17.
  *
- * data-model="city"
+ * data-model="multiselect"
  * data-result="resultId"
  * data-url="url"
  */
@@ -9,18 +9,49 @@
     var defaultConfig = {};
 
     var cityCss = {
-        ".model-city-province:hover": "border: 1px solid #0099FF;border-radius: 5px;box-shadow: 0px 0px 5px #0099FF;",
-        ".model-city-province:active": "background:#f9f9f9;color:#000000;",
-        ".model-city-province": "cursor: pointer;padding:2px 5px 2px 5px;margin:5px;display:block;height:30px;font-size:12px;float:left;text-decoration:none;border: 1px solid #EEEEEE;border-radius: 5px;box-shadow: 0px 0px 5px #EEEEEE;min-width: 40px;text-align: center;line-height: 30px;",
-        ".model-city-pop": "border-radius: 5px;position: absolute;display: block;min-width: 300px;min-height: 150px;border: 1px solid #EEEEEE;z-index: 9999;background: #fafafa;",
-        ".model-city-pop-node": "cursor: pointer;margin: 2px 5px 2px 5px;display: block;float: left;min-height: 30px;min-width: 50px;font-size: 12px;border: 1px solid #EEEEEE;line-height: 30px;text-align: center;border-radius: 5px;box-shadow: 0px 0px 5px #EEEEEE;",
-        ".model-city-pop-node:hover": "border: 1px solid #0099FF;border-radius: 5px;box-shadow: 0px 0px 5px #0099FF;",
-        ".model-city-pop-node-click": "background: #FFFFCC;",
-        ".model-city-count": "position: relative;top: -8px;right: -8px;border: 1px solid #CCFFFF;border-radius: 30px;font-size: 12px;background: #CCFFFF;box-shadow: 0px 0px 5px #CCFFFF;padding: 3px 5px 3px 5px;"
-
+        ".model-multiselect-one:hover": "border: 1px solid #0099FF;border-radius: 5px;box-shadow: 0px 0px 5px #0099FF;",
+        ".model-multiselect-one:active": "background:#f9f9f9;color:#000000;",
+        ".model-multiselect-one": "cursor: pointer;padding:2px 5px 2px 5px;margin:5px;display:block;height:30px;font-size:12px;float:left;text-decoration:none;border: 1px solid #EEEEEE;border-radius: 5px;box-shadow: 0px 0px 5px #EEEEEE;min-width: 40px;text-align: center;line-height: 30px;",
+        ".model-multiselect-pop": "border-radius: 5px;position: absolute;display: block;min-width: 300px;min-height: 150px;border: 1px solid #EEEEEE;z-index: 9999;background: #fafafa;",
+        ".model-multiselect-pop-node": "cursor: pointer;margin: 2px 5px 2px 5px;display: block;float: left;min-height: 30px;min-width: 50px;font-size: 12px;border: 1px solid #EEEEEE;line-height: 30px;text-align: center;border-radius: 5px;box-shadow: 0px 0px 5px #EEEEEE;",
+        ".model-multiselect-pop-node:hover": "border: 1px solid #0099FF;border-radius: 5px;box-shadow: 0px 0px 5px #0099FF;",
+        ".model-multiselect-pop-node-click": "background: #FFFFCC;",
+        ".model-multiselect-count": "position: relative;top: -8px;right: -8px;border: 1px solid #CCFFFF;border-radius: 30px;font-size: 12px;background: #CCFFFF;box-shadow: 0px 0px 5px #CCFFFF;padding: 3px 5px 3px 5px;"
 
     };
 
+    var Constant = {
+        "[data-model=multiselect] > [data-count]": "[data-model=multiselect] > [data-count]",
+        "[data-model=multiselect]": "[data-model=multiselect]",
+        "data": "data",
+        "id": "id",
+        "head": "head",
+        "click": "click",
+        "checks": "checks",
+        "data-result": "data-result",
+        "body": "body",
+        "model-multiselect-one": "model-multiselect-one",
+        "model_multiselect_css": "model_multiselect_css",
+        "model-multiselect-count": "model-multiselect-count",
+        "data-multiselect-one": "data-multiselect-one",
+        "data-count": "data-count",
+        "model-multiselect-pop": "model-multiselect-pop",
+        "data-id": "data-id",
+        "data-name": "data-name",
+        "data-parentId": "data-parentId",
+        "resultRender": "resultRender",
+        "model-multiselect-pop-node": "model-multiselect-pop-node",
+        "model-multiselect-pop-node-click": "model-multiselect-pop-node-click",
+        ".model-multiselect-one": ".model-multiselect-one",
+        ".model-multiselect-pop-node": ".model-multiselect-pop-node",
+        ".model-multiselect-count": ".model-multiselect-count",
+        "#model_multiselect_css": "#model_multiselect_css",
+        ".model-multiselect-pop": ".model-multiselect-pop",
+        "<style>": "<style>",
+        "<a>": "<a>",
+        "<div>": "<div>"
+
+    };
 
     var methods = {
         render: function (params) {
@@ -37,21 +68,21 @@
             var resultRender = methods._getResultRender.call(this);
             var data = methods._getData();
             var that = this;
-            var provinces = [];
+            var multiSelects = [];
 
             for (var i = 0, len = data.length; i < len; i++) {
                 var self = data[i];
-                var province = $("<a>");
-                province.data("data", self);
-                province.data("resultRender", resultRender);
-                province.attr("data-count", methods._getChildrenCheckCount(self.children));
-                province.attr("data-city-province", self.id);
-                province.addClass("model-city-province");
-                province.html(self.name);
-                provinces.push(province);
+                var multiSelect = $("<a>");
+                multiSelect.data(Constant["data"], self);
+                multiSelect.data(Constant["resultRender"], resultRender);
+                multiSelect.attr(Constant["data-count"], methods._getChildrenCheckCount(self.children));
+                multiSelect.attr(Constant["data-multiselect-one"], self.id);
+                multiSelect.addClass(Constant["model-multiselect-one"]);
+                multiSelect.html(self.name);
+                multiSelects.push(multiSelect);
                 methods._updateChecked(this, self.children);
             }
-            that.append(provinces);
+            that.append(multiSelects);
 
             //刷新数量显示
             methods._refreshCount();
@@ -93,7 +124,7 @@
          * @private
          */
         _getResultRender: function () {
-            return this.attr("data-result");
+            return this.attr(Constant["data-result"]);
         },
         /**
          * 获取数据
@@ -132,10 +163,10 @@
             for (var c in cityCss) {
                 css.push(c + "{" + cityCss[c] + "}");
             }
-            if ($("#model_city_css").length == 0) {
-                var style = $("<style>").append(css.join(""));
-                style.attr("id", "model_city_css");
-                $("head").append(style);
+            if ($(Constant["#model_multiselect_css"]).length == 0) {
+                var style = $(Constant["<style>"]).append(css.join(""));
+                style.attr(Constant["id"], Constant["model_multiselect_css"]);
+                $(Constant["head"]).append(style);
             }
         },
         /**
@@ -143,11 +174,11 @@
          * @private
          */
         _bindUI: function () {
-            $(".model-city-province").on("click", this, function (e) {
+            $(Constant[".model-multiselect-one"]).on(Constant["click"], this, function (e) {
                 var that = $(this);
-                var data = that.data("data");
+                var data = that.data(Constant["data"]);
                 var province = e.data;
-                var resultRender = that.data("resultRender");
+                var resultRender = that.data(Constant["resultRender"]);
                 var pop = methods._createChildren(data, resultRender, province);
                 var selfPosition = that.offset();
                 var width = that.width();
@@ -157,24 +188,24 @@
                 return false;
             });
 
-            $("body").on("click", function () {
-                $(".model-city-pop").remove();
+            $(Constant["body"]).on(Constant["click"], function () {
+                $(Constant[".model-multiselect-pop"]).remove();
             });
-            $("body").on("click", ".model-city-pop", function () {
+            $(Constant["body"]).on(Constant["click"], Constant[".model-multiselect-pop"], function () {
                 return false;
             });
-            $("body").on("click", ".model-city-pop-node", this, function (e) {
+            $(Constant["body"]).on(Constant["click"], Constant[".model-multiselect-pop-node"], this, function (e) {
                 var that = $(this);
-                var id = that.attr("data-id");
-                var name = that.attr("data-name");
+                var id = that.attr(Constant["data-id"]);
+                var name = that.attr(Constant["data-name"]);
                 var province = e.data;
-                var parentId = that.attr("data-parentId");
-                that.hasClass("model-city-pop-node-click") ? (function () {
-                    that.removeClass("model-city-pop-node-click");
+                var parentId = that.attr(Constant["data-parentId"]);
+                that.hasClass(Constant["model-multiselect-pop-node-click"]) ? (function () {
+                    that.removeClass(Constant["model-multiselect-pop-node-click"]);
                     methods._removeCheckNode(province, id);
                     methods._removeCount(parentId);
                 })() : (function () {
-                    that.addClass("model-city-pop-node-click");
+                    that.addClass(Constant["model-multiselect-pop-node-click"]);
                     methods._addCheckNode(province, id, name);
                     methods._addCount(parentId);
                 })();
@@ -190,13 +221,13 @@
          * @private
          */
         _refreshCount: function () {
-            var list = $("[data-model=city] > [data-count]");
-            $("[data-model=city]").find(".model-city-count").remove();
+            var list = $(Constant["[data-model=multiselect] > [data-count]"]);
+            $(Constant["[data-model=multiselect]"]).find(Constant[".model-multiselect-count"]).remove();
             list.each(function () {
                 var that = $(this);
-                var dataCount = parseInt(that.attr("data-count"));
-                var numObj = $("<a>");
-                numObj.addClass("model-city-count");
+                var dataCount = parseInt(that.attr(Constant["data-count"]));
+                var numObj = $(Constant["<a>"]);
+                numObj.addClass(Constant["model-multiselect-count"]);
                 numObj.append(dataCount);
                 that.append(numObj);
 
@@ -207,8 +238,8 @@
          * @private
          */
         _refreshResult: function (t) {
-            var resultRender = t.attr("data-result");
-            var data = t.data("checks");
+            var resultRender = t.attr(Constant["data-result"]);
+            var data = t.data(Constant["checks"]);
             var result = [];
             for (var id in data) {
                 var name = data[id];
@@ -221,9 +252,9 @@
          * @private
          */
         _addCheckNode: function (t, id, name) {
-            var checks = t.data("checks") || {};
+            var checks = t.data(Constant["checks"]) || {};
             checks[id] = name;
-            t.data("checks", checks);
+            t.data(Constant["checks"], checks);
         },
         /**
          * 添加数量
@@ -231,9 +262,10 @@
          * @private
          */
         _addCount: function (parentId) {
-            var province = $("[data-city-province=" + parentId + "]");
-            var count = parseInt(province.attr("data-count") || 0);
-            province.attr("data-count", ++count);
+            var selector = "[" + Constant["data-multiselect-one"] + "=" + parentId + "]";
+            var province = $(selector);
+            var count = parseInt(province.attr(Constant["data-count"]) || 0);
+            province.attr(Constant["data-count"], ++count);
         },
         /**
          * 修改数量
@@ -242,7 +274,8 @@
          * @private
          */
         _updateCount: function (parentId, sum) {
-            $("[data-city-province=" + parentId + "]").attr("data-count", sum);
+            var selector = "[" + Constant["data-multiselect-one"] + "=" + parentId + "]";
+            $(selector).attr(Constant["data-count"], sum);
         },
         /**
          * 删除数量
@@ -250,21 +283,22 @@
          * @private
          */
         _removeCount: function (parentId) {
-            var province = $("[data-city-province=" + parentId + "]");
-            var count = parseInt(province.attr("data-count") || 0);
+            var selector = "[" + Constant["data-multiselect-one"] + "=" + parentId + "]";
+            var province = $(selector);
+            var count = parseInt(province.attr(Constant["data-count"]) || 0);
             if (count != 0) {
                 --count;
             }
-            province.attr("data-count", count);
+            province.attr(Constant["data-count"], count);
         },
         /**
          * 删除选中
          * @private
          */
         _removeCheckNode: function (t, id) {
-            var checks = t.data("checks") || {};
+            var checks = t.data(Constant["checks"]) || {};
             delete checks[id];
-            t.data("checks", checks);
+            t.data(Constant["checks"], checks);
 
         },
         /**
@@ -276,21 +310,21 @@
          * @private
          */
         _createChildren: function (data, resultRender, province) {
-            var children = $("<div>");
-            var checks = province.data("checks") || {};
-            var p = $("<div>").addClass("model-city-pop");
+            var children = $(Constant["<div>"]);
+            var checks = province.data(Constant["checks"]) || {};
+            var p = $(Constant["<div>"]).addClass(Constant["model-multiselect-pop"]);
             var childDom = [];
             var count = 0;
             for (var i = 0, len = data.children.length; i < len; i++) {
                 var obj = data.children[i];
-                var node = $("<a>");
-                node.attr("data-id", obj.id);
-                node.attr("data-name", obj.name);
-                node.attr("data-parentId", data.id);
-                node.data("resultRender", resultRender);
-                node.addClass("model-city-pop-node");
+                var node = $(Constant["<a>"]);
+                node.attr(Constant["data-id"], obj.id);
+                node.attr(Constant["data-name"], obj.name);
+                node.attr(Constant["data-parentId"], data.id);
+                node.data(Constant["resultRender"], resultRender);
+                node.addClass(Constant["model-multiselect-pop-node"]);
                 if (checks[obj.id]) {
-                    node.addClass("model-city-pop-node-click");
+                    node.addClass(Constant["model-multiselect-pop-node-click"]);
                     ++count;
                 }
                 methods._updateCount(count);
@@ -298,8 +332,8 @@
                 childDom.push(node);
             }
             p.append(childDom);
-            $(".model-city-pop").remove();
-            $("body").append(p);
+            $(Constant[".model-multiselect-pop"]).remove();
+            $(Constant["body"]).append(p);
             return p;
         },
         /**
@@ -323,7 +357,7 @@
         }
     };
 
-    $.fn.city = function (method) {
+    $.fn.MultiSelect = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
@@ -335,6 +369,6 @@
 
     //页面加载完成之后，初始化控件
     $(document).ready(function () {
-        $("[data-model=city]").city();
+        $(Constant["[data-model=multiselect]"]).MultiSelect();
     });
 })($);
