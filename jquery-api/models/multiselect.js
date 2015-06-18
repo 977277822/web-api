@@ -1,9 +1,12 @@
 /**
- * Created by Administrator on 2015/6/17.
+ * Created by zxb on 2015/6/17.
+ * 多选项插件
  *
  * data-model="multiselect"
  * data-result="resultId"
  * data-url="url"
+ * data-location="dataJson"
+ * dataStructure :   [ { id:"",name:"",children:[ { id:"",name:""} ] } ]
  */
 (function ($) {
     var defaultConfig = {};
@@ -66,7 +69,7 @@
         _createAfterDom: function () {
             methods._createCss();
             var resultRender = methods._getResultRender.call(this);
-            var data = methods._getData();
+            var data = methods._getData.call(this);
             var that = this;
             var multiSelects = [];
 
