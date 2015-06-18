@@ -21,9 +21,11 @@
 
     };
 
+
     var methods = {
         render: function (params) {
             methods._createAfterDom.call(this);
+            methods._validRenderData();
             methods._bindUI.call(this);
         },
         /**
@@ -43,12 +45,11 @@
                 province.data("data", self);
                 province.data("resultRender", resultRender);
                 province.attr("data-count", methods._getChildrenCheckCount(self.children));
-                province.attr("id", self.id);
                 province.attr("data-city-province", self.id);
                 province.addClass("model-city-province");
                 province.html(self.name);
                 provinces.push(province);
-                methods._updateChecked(this,self.children);
+                methods._updateChecked(this, self.children);
             }
             that.append(provinces);
 
@@ -57,6 +58,12 @@
             //刷新显示结果
             methods._refreshResult(this);
         },
+        /**
+         * 修改选中结果
+         * @param t
+         * @param children
+         * @private
+         */
         _updateChecked: function (t, children) {
             for (var i = 0, len = children.length; i < len; i++) {
                 var self = children[i];
@@ -80,6 +87,11 @@
             }
             return count;
         },
+        /**
+         * 获取结果显示对象选择器
+         * @returns {*}
+         * @private
+         */
         _getResultRender: function () {
             return this.attr("data-result");
         },
@@ -89,8 +101,12 @@
          * @private
          */
         _getData: function () {
-            return [{id: "beijing0", name: "北京", children: [{id: "bj0", name: "北京", checked: true}]},
-                {id: "beijing1", name: "北京", children: [{id: "bj1", name: "北京"}]},
+            return [{id: "beijing0", name: "北京", children: [{id: "bj0", name: "北京"}]},
+                {
+                    id: "beijing1",
+                    name: "北京",
+                    children: [{id: "bj1", name: "北京"}, {id: "bj11", name: "北京1"}, {id: "bj21", name: "北京2"}]
+                },
                 {id: "beijing2", name: "北京", children: [{id: "bj2", name: "北京"}]},
                 {id: "beijing3", name: "北京", children: [{id: "bj3", name: "北京", checked: true}]},
                 {id: "beijing4", name: "北京", children: [{id: "bj4", name: "北京"}]},
@@ -149,7 +165,7 @@
             });
             $("body").on("click", ".model-city-pop-node", this, function (e) {
                 var that = $(this);
-                var id = that.attr("id");
+                var id = that.attr("data-id");
                 var name = that.attr("data-name");
                 var province = e.data;
                 var parentId = that.attr("data-parentId");
@@ -209,20 +225,37 @@
             checks[id] = name;
             t.data("checks", checks);
         },
-
+        /**
+         * 添加数量
+         * @param parentId
+         * @private
+         */
         _addCount: function (parentId) {
-            var count = parseInt($("#" + parentId).attr("data-count") || 0);
-            $("#" + parentId).attr("data-count", ++count);
+            var province = $("[data-city-province=" + parentId + "]");
+            var count = parseInt(province.attr("data-count") || 0);
+            province.attr("data-count", ++count);
         },
+        /**
+         * 修改数量
+         * @param parentId
+         * @param sum
+         * @private
+         */
         _updateCount: function (parentId, sum) {
-            $("#" + parentId).attr("data-count", sum);
+            $("[data-city-province=" + parentId + "]").attr("data-count", sum);
         },
+        /**
+         * 删除数量
+         * @param parentId
+         * @private
+         */
         _removeCount: function (parentId) {
-            var count = parseInt($("#" + parentId).attr("data-count") || 0);
+            var province = $("[data-city-province=" + parentId + "]");
+            var count = parseInt(province.attr("data-count") || 0);
             if (count != 0) {
                 --count;
             }
-            $("#" + parentId).attr("data-count", count);
+            province.attr("data-count", count);
         },
         /**
          * 删除选中
@@ -234,6 +267,14 @@
             t.data("checks", checks);
 
         },
+        /**
+         * 生成子多选菜单
+         * @param data
+         * @param resultRender
+         * @param province
+         * @returns {*|jQuery}
+         * @private
+         */
         _createChildren: function (data, resultRender, province) {
             var children = $("<div>");
             var checks = province.data("checks") || {};
@@ -243,7 +284,7 @@
             for (var i = 0, len = data.children.length; i < len; i++) {
                 var obj = data.children[i];
                 var node = $("<a>");
-                node.attr("id", obj.id);
+                node.attr("data-id", obj.id);
                 node.attr("data-name", obj.name);
                 node.attr("data-parentId", data.id);
                 node.data("resultRender", resultRender);
@@ -266,6 +307,14 @@
          * @private
          */
         _validRenderData: function () {
+            var data = methods._getData();
+            if (data == undefined || data == null || data == "") {
+                throw new Error('model-city error : data \u4e0d\u5b58\u5728\uff01');
+            }
+            //检查ID是否已存在
+            for (var i = 0, len = data.length; i < len; i++) {
+
+            }
         },
         /**
          * 刷新
