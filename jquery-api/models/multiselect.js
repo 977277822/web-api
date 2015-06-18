@@ -72,7 +72,7 @@
 
             for (var i = 0, len = data.length; i < len; i++) {
                 var self = data[i];
-                var multiSelect = $("<a>");
+                var multiSelect = $(Constant["<a>"]);
                 multiSelect.data(Constant["data"], self);
                 multiSelect.data(Constant["resultRender"], resultRender);
                 multiSelect.attr(Constant["data-count"], methods._getChildrenCheckCount(self.children));
