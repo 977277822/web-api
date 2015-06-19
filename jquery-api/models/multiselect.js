@@ -6,6 +6,7 @@
  * data-result="resultId"
  * data-url="url"
  * data-location="dataJson"
+ * data-resultformatter="function(data){ ???.val(value) || ???.append(value) }"
  * dataStructure :   [ { id:"",name:"",children:[ { id:"",name:""} ] } ]
  */
 (function ($) {
@@ -38,6 +39,7 @@
         "model-multiselect-count": "model-multiselect-count",
         "data-multiselect-one": "data-multiselect-one",
         "data-count": "data-count",
+        "data-resultformatter":"data-resultformatter",
         "model-multiselect-pop": "model-multiselect-pop",
         "data-id": "data-id",
         "data-name": "data-name",
@@ -54,12 +56,13 @@
         "<a>": "<a>",
         "<div>": "<div>"
 
+
     };
 
     var methods = {
         render: function (params) {
             methods._createAfterDom.call(this);
-            methods._validRenderData();
+            methods._validRenderData.call(this);
             methods._bindUI.call(this);
         },
         /**
@@ -135,27 +138,20 @@
          * @private
          */
         _getData: function () {
-            return [{id: "beijing0", name: "北京", children: [{id: "bj0", name: "北京"}]},
-                {
-                    id: "beijing1",
-                    name: "北京",
-                    children: [{id: "bj1", name: "北京"}, {id: "bj11", name: "北京1"}, {id: "bj21", name: "北京2"}]
-                },
-                {id: "beijing2", name: "北京", children: [{id: "bj2", name: "北京"}]},
-                {id: "beijing3", name: "北京", children: [{id: "bj3", name: "北京", checked: true}]},
-                {id: "beijing4", name: "北京", children: [{id: "bj4", name: "北京"}]},
-                {id: "beijing5", name: "北京", children: [{id: "bj5", name: "北京"}]},
-                {id: "beijing6", name: "北京", children: [{id: "bj6", name: "北京"}]},
-                {id: "beijing7", name: "北京", children: [{id: "bj7", name: "北京"}]},
-                {id: "beijing8", name: "北京", children: [{id: "bj8", name: "北京"}]},
-                {id: "beijing9", name: "北京", children: [{id: "bj9", name: "北京"}]},
-                {id: "beijing10", name: "北京", children: [{id: "bj10", name: "北京"}]},
-                {id: "beijing11", name: "北京", children: [{id: "bj11", name: "北京"}]},
-                {id: "beijing12", name: "北京", children: [{id: "bj12", name: "北京"}]},
-                {id: "beijing13", name: "北京", children: [{id: "bj13", name: "北京"}]},
-                {id: "beijing14", name: "北京", children: [{id: "bj14", name: "北京"}]},
-                {id: "beijing15", name: "北京", children: [{id: "bj15", name: "北京"}]}
-            ];
+            var that = $(this[0]), dataUrl = that.attr("data-url"), data = [];
+            if (dataUrl) {
+                $.ajax({
+                    url: dataUrl,
+                    type: "post",
+                    dataType: "json",
+                    async: false,
+                    success: function (result) {
+                        data = result;
+                    }
+                });
+            }
+            that.data("dataJson", data);
+            return data;
         },
         /**
          * 创建样式表
@@ -242,13 +238,20 @@
          */
         _refreshResult: function (t) {
             var resultRender = t.attr(Constant["data-result"]);
+            var resultFormatter = t.attr(Constant["data-resultformatter"]);
             var data = t.data(Constant["checks"]);
-            var result = [];
-            for (var id in data) {
-                var name = data[id];
-                result[result.length] = id + "_" + name;
+            if (resultFormatter) {
+                var fmt = eval(resultFormatter);
+                fmt(data);
             }
-            $(resultRender).empty().append(result.join(","));
+            else if (resultRender) {
+                var result = [];
+                for (var id in data) {
+                    var name = data[id];
+                    result[result.length] = id + "_" + name;
+                }
+                $(resultRender).empty().append(result.join(","));
+            }
         },
         /**
          * 添加选中
@@ -344,7 +347,8 @@
          * @private
          */
         _validRenderData: function () {
-            var data = methods._getData();
+            var that = $(this[0]);
+            var data = that.data("dataJson");
             if (data == undefined || data == null || data == "") {
                 throw new Error('model-city error : data \u4e0d\u5b58\u5728\uff01');
             }

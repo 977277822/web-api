@@ -19,6 +19,18 @@
 
 <div id="result" style="height:100px;"></div>
 
-<div id="render" data-model="multiselect" data-result="#result"></div>
+<div id="render" data-model="multiselect" data-result="#result" data-url="data.json"
+     data-resultformatter="format"></div>
+
+<script>
+    function format(data) {
+        var result = [];
+        for (var id in data) {
+            var name = data[id];
+            result[result.length] = id + "_" + name;
+        }
+        $("#result").empty().append(result.join(","));
+    }
+</script>
 </body>
 </html>

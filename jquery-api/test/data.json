@@ -1,0 +1,171 @@
+[
+  {
+    "id": "beijing0",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj0",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing1",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj1",
+        "name": "北京"
+      },
+      {
+        "id": "bj11",
+        "name": "北京1"
+      },
+      {
+        "id": "bj21",
+        "name": "北京2"
+      }
+    ]
+  },
+  {
+    "id": "beijing2",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj2",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing3",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj3",
+        "name": "北京",
+        "checked": true
+      }
+    ]
+  },
+  {
+    "id": "beijing4",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj4",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing5",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj5",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing6",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj6",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing7",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj7",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing8",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj8",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing9",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj9",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing10",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj10",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing11",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj11",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing12",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj12",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing13",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj13",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing14",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj14",
+        "name": "北京"
+      }
+    ]
+  },
+  {
+    "id": "beijing15",
+    "name": "北京",
+    "children": [
+      {
+        "id": "bj15",
+        "name": "北京"
+      }
+    ]
+  }
+]
