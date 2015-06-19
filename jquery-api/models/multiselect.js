@@ -13,7 +13,7 @@
 (function ($) {
     var defaultConfig = {};
 
-    var cityCss = {
+    var multiselectCss = {
         ".model-multiselect-one:hover": "border: 1px solid #0099FF;border-radius: 5px;box-shadow: 0px 0px 5px #0099FF;",
         ".model-multiselect-one:active": "background:#f9f9f9;color:#000000;",
         ".model-multiselect-one": "cursor: pointer;padding:2px 5px 2px 5px;margin:5px;display:block;height:30px;font-size:12px;float:left;text-decoration:none;border: 1px solid #EEEEEE;border-radius: 5px;box-shadow: 0px 0px 5px #EEEEEE;min-width: 40px;text-align: center;line-height: 30px;",
@@ -55,11 +55,9 @@
         ".model-multiselect-count": ".model-multiselect-count",
         "#model_multiselect_css": "#model_multiselect_css",
         ".model-multiselect-pop": ".model-multiselect-pop",
-        "<style>": "<style>",
         "<a>": "<a>",
-        "<div>": "<div>"
-
-
+        "<div>": "<div>",
+        "</style>":"</style>"
     };
 
     var methods = {
@@ -168,13 +166,13 @@
          */
         _createCss: function () {
             var css = [];
-            for (var c in cityCss) {
-                css.push(c + "{" + cityCss[c] + "}");
-            }
             if ($(Constant["#model_multiselect_css"]).length == 0) {
-                var style = $(Constant["<style>"]).append(css.join(""));
-                style.attr(Constant["id"], Constant["model_multiselect_css"]);
-                $(Constant["head"]).append(style);
+                css[css.length] = "<style id='"+Constant["model_multiselect_css"]+"'>";
+                for (var c in multiselectCss) {
+                    css.push(c + "{" + multiselectCss[c] + "}");
+                }
+                css[css.length] = Constant["</style>"];
+                $(Constant["head"]).append(css.join(""));
             }
         },
         /**
