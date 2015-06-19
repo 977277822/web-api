@@ -5,9 +5,11 @@
  * data-model="multiselect"
  * data-result="resultId"
  * data-url="url"
+ * data-json="json"
  * data-location="dataJson"
  * data-resultformatter="function(data){ ???.val(value) || ???.append(value) }"
  * dataStructure :   [ { id:"",name:"",children:[ { id:"",name:""} ] } ]
+ *
  */
 (function ($) {
     var defaultConfig = {};
@@ -39,9 +41,11 @@
         "model-multiselect-count": "model-multiselect-count",
         "data-multiselect-one": "data-multiselect-one",
         "data-count": "data-count",
-        "data-resultformatter":"data-resultformatter",
+        "data-resultformatter": "data-resultformatter",
         "model-multiselect-pop": "model-multiselect-pop",
         "data-id": "data-id",
+        "data-url": "data-url",
+        "data-json": "data-json",
         "data-name": "data-name",
         "data-parentId": "data-parentId",
         "resultRender": "resultRender",
@@ -60,7 +64,7 @@
     };
 
     var methods = {
-        render: function (params) {
+        render: function () {
             methods._createAfterDom.call(this);
             methods._validRenderData.call(this);
             methods._bindUI.call(this);
@@ -138,8 +142,14 @@
          * @private
          */
         _getData: function () {
-            var that = $(this[0]), dataUrl = that.attr("data-url"), data = [];
-            if (dataUrl) {
+            var that = $(this[0]);
+            dataUrl = that.attr(Constant["data-url"]);
+            dataJson = that.attr(Constant["data-json"]);
+            data = [];
+            if (dataJson) {
+                data = eval(dataJson);
+            }
+            else if (dataUrl) {
                 $.ajax({
                     url: dataUrl,
                     type: "post",
@@ -239,6 +249,7 @@
         _refreshResult: function (t) {
             var resultRender = t.attr(Constant["data-result"]);
             var resultFormatter = t.attr(Constant["data-resultformatter"]);
+
             var data = t.data(Constant["checks"]);
             if (resultFormatter) {
                 var fmt = eval(resultFormatter);
