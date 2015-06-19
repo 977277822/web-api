@@ -6,7 +6,6 @@
  * data-result="resultId"
  * data-url="url"
  * data-json="json"
- * data-location="dataJson"
  * data-resultformatter="function(data){ ???.val(value) || ???.append(value) }"
  * dataStructure :   [ { id:"",name:"",children:[ { id:"",name:""} ] } ]
  *
