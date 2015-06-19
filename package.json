@@ -1,0 +1,16 @@
+{
+  "name": "kissy-api",
+  "version": "1.0.0",
+  "description": "kissy的wep api",
+  "main": "index",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "zxb",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.12.4",
+    "fs": "0.0.2",
+    "node-uuid": "^1.4.3"
+  }
+}
