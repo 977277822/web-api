@@ -19,7 +19,7 @@
         ".model-multiselect-one:active": "background:#f9f9f9;color:#000000;",
         ".model-multiselect-one": "cursor: pointer;padding:2px 5px 2px 5px;margin:5px;display:block;height:30px;font-size:12px;float:left;text-decoration:none;border: 1px solid #EEEEEE;border-radius: 5px;box-shadow: 0px 0px 5px #EEEEEE;min-width: 40px;text-align: center;line-height: 30px;",
         ".model-multiselect-pop": "border-radius: 5px;position: absolute;display: block;min-width: 300px;min-height: 150px;border: 1px solid #EEEEEE;z-index: 9999;background: #fafafa;",
-        ".model-multiselect-pop-node": "cursor: pointer;margin: 2px 5px 2px 5px;display: block;float: left;min-height: 30px;min-width: 50px;font-size: 12px;border: 1px solid #EEEEEE;line-height: 30px;text-align: center;border-radius: 5px;box-shadow: 0px 0px 5px #EEEEEE;",
+        ".model-multiselect-pop-node": "padding: 0px 3px 0px 3px;cursor: pointer;margin: 2px 5px 2px 5px;display: block;float: left;min-height: 30px;min-width: 50px;font-size: 12px;border: 1px solid #EEEEEE;line-height: 30px;text-align: center;border-radius: 5px;box-shadow: 0px 0px 5px #EEEEEE;",
         ".model-multiselect-pop-node:hover": "border: 1px solid #0099FF;border-radius: 5px;box-shadow: 0px 0px 5px #0099FF;",
         ".model-multiselect-pop-node-click": "background: #FFFFCC;",
         ".model-multiselect-count": "position: relative;top: -8px;right: -8px;border: 1px solid #CCFFFF;border-radius: 30px;font-size: 12px;background: #CCFFFF;box-shadow: 0px 0px 5px #CCFFFF;padding: 3px 5px 3px 5px;"
