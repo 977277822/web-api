@@ -2,8 +2,8 @@
  * Created by Administrator on 2015/6/23.
  */
 
+var Model = {};
 (function () {
-
     var Class = function (config) {
 
         var obj = {"attrs": {}, "funcs": {}, "events": {}};
@@ -45,23 +45,20 @@
                     this.setValue(p, vs[p]);
                 }
             }
-            this.destory = function(){
-                if(obj["funcs"]["init"]){
-                    obj["funcs"]["init"]();
-                }
-                delete this;
-            }
             this.setValue(values);
-
-            if(obj["funcs"]["init"]){
-                obj["funcs"]["init"]();
+            if (obj["events"]["init"]) {
+                obj["events"]["init"]();
             }
 
         };
     };
+    if (Model) {
+        Model.create = Class;
+    }
+})();
 
-
-    var c = new Class({
+(function () {
+    var c = new Model.create({
         attrs: {a: 1, b: "2"},
         events: {
             a: function () {
@@ -73,8 +70,11 @@
         }
     });
     var a = new c()
+    console.log(a)
     a.setValue("a", "2")
+    a.destory();
+
     console.log(a.getValue("a"));
-})();
+})()
 
 
