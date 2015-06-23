@@ -52,6 +52,13 @@ var Model = {};
 
         };
     };
+
+    var augment = function(oldClass,newClassAttr){
+        var pro = oldClass.prototype;
+        for(var p in newClassAttr){
+            pro[p] = newClassAttr[p];
+        }
+    }
     if (Model) {
         Model.create = Class;
     }
