@@ -11,15 +11,16 @@ var Model = {};
         if (config) {
             for (var p in config) {
                 if (hasOwn.call(config, p)) {
-                    pro[p] = config[p];
+                    if (typeof config[p] === "function") {
+                        console.log(config[p]);
+                    } else {
+                        pro[p] = config[p];
+                    }
                 }
             }
         }
         return (function () {
             var proto = Function.prototype;
-            proto.getPro = function(p){
-                return pro[p];
-            }
             for (var p in pro) {
                 if (!privateReg.test(p)) {
                     proto[p] = pro[p];
@@ -46,13 +47,10 @@ var Model = {};
     var Student = new Model.create({
         _name: "1",
         id: "1",
-        getName : function(){
-            console.log(this.getPro("_name"))
+        getName: function (a) {
         }
     });
 
-    var a = new Student();
-    console.log(a.getName())
 })()
 
 
