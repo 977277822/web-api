@@ -4,84 +4,55 @@
 
 var Model = {};
 (function () {
+    var hasOwn = Object.prototype.hasOwnProperty;
+    var privateReg = /^[_]/;
     var Class = function (config) {
-
-        var obj = {"attrs": {}, "funcs": {}, "events": {}};
-
-        /**
-         * 事件
-         */
-        if (config.events) {
-            for (var p in config.events) {
-                obj["events"][p] = config.events[p];
-            }
-        }
-        /**
-         * 属性集
-         */
-        if (config.attrs) {
-            for (var p in config.attrs) {
-                obj["attrs"][p] = config.attrs[p] || null;
-            }
-        }
-        /**
-         * 方法集
-         */
-        if (config.funcs) {
-            for (var p in config.funcs) {
-                obj["funcs"][p] = config.funcs[p];
-            }
-        }
-
-        return function (values) {
-            this.setValue = function (attr, val) {
-                obj["attrs"][attr] = val;
-            };
-            this.getValue = function (attr) {
-                return obj["attrs"][attr];
-            };
-            this.setValues = function (vs) {
-                for (var p in vs) {
-                    this.setValue(p, vs[p]);
+        var pro = {};
+        if (config) {
+            for (var p in config) {
+                if (hasOwn.call(config, p)) {
+                    pro[p] = config[p];
                 }
             }
-            this.setValue(values);
-            if (obj["events"]["init"]) {
-                obj["events"]["init"]();
+        }
+        return (function () {
+            var proto = Function.prototype;
+            proto.getPro = function(p){
+                return pro[p];
             }
-
-        };
+            for (var p in pro) {
+                if (!privateReg.test(p)) {
+                    proto[p] = pro[p];
+                }
+            }
+            return proto.constructor;
+        })();
     };
 
-    var augment = function(oldClass,newClassAttr){
+
+    var augment = function (oldClass, newClassAttr) {
         var pro = oldClass.prototype;
-        for(var p in newClassAttr){
+        for (var p in newClassAttr) {
             pro[p] = newClassAttr[p];
         }
     }
+
     if (Model) {
         Model.create = Class;
     }
 })();
 
 (function () {
-    var c = new Model.create({
-        attrs: {a: 1, b: "2"},
-        events: {
-            a: function () {
-            }
-        },
-        funcs: {
-            b: function () {
-            }
+    var Student = new Model.create({
+        _name: "1",
+        id: "1",
+        getName : function(){
+            console.log(this.getPro("_name"))
         }
     });
-    var a = new c()
-    console.log(a)
-    a.setValue("a", "2")
-    a.destory();
 
-    console.log(a.getValue("a"));
+    var a = new Student();
+    console.log(a.getName())
 })()
 
 
