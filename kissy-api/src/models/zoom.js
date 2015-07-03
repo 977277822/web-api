@@ -5,7 +5,7 @@
  * Created by Administrator on 2015/6/11.
  */
 
-define(function (require, exports, module) {
+define("zoom",function (require, exports, module) {
     var node = require("node");
     var util = require("util");
     var eventDom = require("event-dom");
