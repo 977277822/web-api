@@ -6,8 +6,8 @@
 var Model = {};
 (function () {
     var hasOwn = Object.prototype.hasOwnProperty;
-    var Class = function (proConfig,consConfig) {
-        var pro = {},cons = {};
+    var Class = function (proConfig, consConfig) {
+        var pro = {}, cons = {};
         if (proConfig) {
             for (var p in proConfig) {
                 if (hasOwn.call(proConfig, p)) {
@@ -23,14 +23,15 @@ var Model = {};
             }
         }
         return (function () {
-            var func = Function;
+            var func = function () {
+            };
             var proto = func.prototype;
             var constructor = func.constructor;
             for (var p in pro) {
                 proto[p] = pro[p];
             }
             for (var p in cons) {
-                constructor[p] = cons[p];
+                func[p] = cons[p];
             }
             return proto.constructor;
         })();
@@ -38,27 +39,25 @@ var Model = {};
 
 
     if (Model) {
+        Model.stack = [];
         Model.create = function (defaultConfig) {
-            if(defaultConfig){
-                if(typeof defaultConfig == "object" ){
+            if (defaultConfig) {
+                if (typeof defaultConfig == "object") {
                     var _Model = Class({
                         __registerType: defaultConfig.registerType,
-                        __renderData:defaultConfig.renderData,
-                        __instances: [],
-                        get: function () {
-                            console.log(1)
-                        },
-                        update: function () {
-                        },
-                        remove: function () {
-                        }
-                    },{
-                        instance : function(){
-                            var cons = this.constructor,__renderData = cons.prototype.__renderData;
+                        __renderData: defaultConfig.renderData,
+                        get: function (attrId,attrValue) {
+                            var that = this,renderData = this.__renderData;
+                            if(renderData){
 
-                            console.log(__renderData)
+                            }
+                        }
+                    }, {
+                        instance: function () {
+                            return new this;
                         }
                     });
+                    Model.stack.push(_Model);
                     return _Model;
                 }
             }
@@ -67,9 +66,15 @@ var Model = {};
 })();
 
 (function () {
-    var a = Model.create({registerType: "Student", renderData: [{id: 1, name: "zs"}, {id: 2, name: "lisi"}]});
+    var a = Model.create({registerType: "Student", renderData: [{id: 1, name: "zs"}, {id: 2, name: "zs2"}]});
+    var b = Model.create({registerType: "Class", renderData: [{id: 3, name: "zs"}, {id: 4, name: "zs2"}]});
 
-    a.instance()
+    console.log(a.instance())
+    console.log(b.instance())
+    //a.instance();
+    // b.instance();
+    //console.log(a.get("id", 1))
+    //console.log(b.get("id", 3))
 })()
 
 
