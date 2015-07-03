@@ -3,7 +3,7 @@
  * Created by zxb on 2015/6/23.
  */
 
-var Model = {};
+var Model = {}, View = {};
 (function () {
     var hasOwn = Object.prototype.hasOwnProperty;
     var Class = function (proConfig, consConfig) {
@@ -41,36 +41,80 @@ var Model = {};
     if (Model) {
         Model.stack = [];
         Model.create = function (defaultConfig) {
-            if (defaultConfig) {
-                if (typeof defaultConfig == "object") {
-                    var _Model = Class({
-                        __registerType: defaultConfig.registerType,
-                        __renderData: defaultConfig.renderData,
-                        get: function (attrId,attrValue) {
-                            var that = this,renderData = this.__renderData;
-                            if(renderData){
+            if (defaultConfig || typeof defaultConfig == "object") {
+                var _Model = Class({
+                    __registerType: defaultConfig.registerType,
+                    __renderData: defaultConfig.renderData,
+                    get: function (attrId, attrValue) {
+                        var that = this, renderData = that.__renderData, resultArr = [];
+                        if (!attrId && !attrValue) {
+                            return renderData;
+                        }
 
+                        if (renderData) {
+                            for (var i = 0, len = renderData.length; i < len; i++) {
+                                var t = renderData[i];
+                                if (attrId && attrValue) {
+                                    if (t[attrId] === attrValue) {
+                                        resultArr.push(t);
+                                    }
+                                } else if (attrId) {
+                                    if (t[attrId]) {
+                                        resultArr.push(t);
+                                    }
+                                }
                             }
+                            return resultArr;
                         }
-                    }, {
-                        instance: function () {
-                            return new this;
-                        }
-                    });
-                    Model.stack.push(_Model);
-                    return _Model;
-                }
+                    }
+                }, {
+                    instance: function () {
+                        var o = new this;
+                        Model.stack.push(o);
+                        return o;
+                    }
+                });
+                Model.stack.push(_Model);
+                return _Model;
             }
-        };
+        }
+
+        View.stack = [];
+        View.create = function (defaultConfig) {
+            if (defaultConfig || typeof defaultConfig == "object") {
+                var _View = Class({
+                    __modelType: defaultConfig.modelType,
+                    __view: defaultConfig.view,
+                    __render: defaultConfig.render,
+                    render: function () {
+                        var that = this, modelType = that.__modelType, view = that.__view, render = that.__render;
+                    },
+                    refresh: function () {
+                    }
+                }, {
+                    render: function () {
+                        var o = new this;
+                        View.stack[o];
+                        return o;
+                    }
+                });
+            }
+        }
     }
 })();
 
 (function () {
-    var a = Model.create({registerType: "Student", renderData: [{id: 1, name: "zs"}, {id: 2, name: "zs2"}]});
-    var b = Model.create({registerType: "Class", renderData: [{id: 3, name: "zs"}, {id: 4, name: "zs2"}]});
+    var A = Model.create({registerType: "Student", renderData: [{id: 1, name: "zs"}, {id: 2, name: "zs2"}]});
+    var B = Model.create({registerType: "Class", renderData: [{id: 3, name: "zs"}, {id: 4, name: "zs2"}]});
 
-    console.log(a.instance())
-    console.log(b.instance())
+    var V = View.create({modelType: "Student", view: "aaaa", render: "dddd"});
+
+    var a = A.instance();
+    var b = B.instance();
+
+    console.log(a.get("id", 1))
+    console.log(A.instance())
+    console.log(B.instance())
     //a.instance();
     // b.instance();
     //console.log(a.get("id", 1))
