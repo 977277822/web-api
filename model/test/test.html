@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="../../kissy-combo/src/kissy/seed.js"></script>
+    <script src="../src/Class.js"></script>
+    <script src="../src/Model.js"></script>
+
+    <script>
+        require(["Model"],function(Model){
+            var A = Model.create({registerType: "Student", renderData: [{id: 1, name: "zs"}, {id: 2, name: "zs2"}]});
+            var a = A.instance();
+            console.log(a.get("id", 1))
+        })
+    </script>
+</head>
+<body>
+<h2>aaaaa</h2>
+</body>
+</html>
