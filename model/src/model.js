@@ -46,7 +46,7 @@
                     return _Model;
                 }
             }
-            return module
+            return module;
         })
     }
 })()

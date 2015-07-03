@@ -6,7 +6,8 @@
 (function(){
     if(define){
         define(function(require, exports, module){
-
+            var model = require("Model");
+            module.stack = [];
         })
     }
 })()

@@ -38,7 +38,7 @@
                 })();
             };
             module.Class = Class;
-            return module
+            return module;
         });
     }
 
