@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <iframe id="hideIframe" name="hideIframe"></iframe>
+    <form id="ttt" target="hideIframe" method="post">
+        aaaa<input>
+        <input type="button" value="submit" onclick="subm()">
+    </form>
+<script>
+    function subm(){
+        var ttt = document.getElementById("ttt");
+        var hideIframe = document.getElementById("hideIframe");
+        hideIframe.onload = function(){alert(1)}
+        ttt.submit();
+    }
+
+
+    var aa = "张三";
+
+    console.log(parseInt(aa,16));
+
+</script>
+</body>
+</html>

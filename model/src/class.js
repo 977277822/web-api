@@ -1,56 +1,45 @@
 /**
- * Created by Administrator on 2015/6/23.
+ * Created by Administrator on 2015/7/3.
  */
 
-var Model = {};
+
 (function () {
-    var hasOwn = Object.prototype.hasOwnProperty;
-    var privateReg = /^[_]/;
-    var Class = function (config) {
-        var pro = {};
-        if (config) {
-            for (var p in config) {
-                if (hasOwn.call(config, p)) {
-                    if (typeof config[p] === "function") {
-                        console.log(config[p]);
-                    } else {
-                        pro[p] = config[p];
+    if (define) {
+        define("Class", function (require, exports, module) {
+            var hasOwn = Object.prototype.hasOwnProperty;
+            var Class = function (proConfig, consConfig) {
+                var pro = {}, cons = {};
+                if (proConfig) {
+                    for (var p in proConfig) {
+                        if (hasOwn.call(proConfig, p)) {
+                            pro[p] = proConfig[p];
+                        }
                     }
                 }
-            }
-        }
-        return (function () {
-            var proto = Function.prototype;
-            for (var p in pro) {
-                if (!privateReg.test(p)) {
-                    proto[p] = pro[p];
+                if (consConfig) {
+                    for (var p in consConfig) {
+                        if (hasOwn.call(consConfig, p)) {
+                            cons[p] = consConfig[p];
+                        }
+                    }
                 }
-            }
-            return proto.constructor;
-        })();
-    };
-
-
-    var augment = function (oldClass, newClassAttr) {
-        var pro = oldClass.prototype;
-        for (var p in newClassAttr) {
-            pro[p] = newClassAttr[p];
-        }
+                return (function () {
+                    var func = function () {
+                    };
+                    var proto = func.prototype;
+                    var constructor = func.constructor;
+                    for (var p in pro) {
+                        proto[p] = pro[p];
+                    }
+                    for (var p in cons) {
+                        func[p] = cons[p];
+                    }
+                    return proto.constructor;
+                })();
+            };
+            module.Class = Class;
+            return module
+        });
     }
 
-    if (Model) {
-        Model.create = Class;
-    }
 })();
-
-(function () {
-    var Student = new Model.create({
-        _name: "1",
-        id: "1",
-        getName: function (a) {
-        }
-    });
-
-})()
-
-
