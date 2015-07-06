@@ -9,7 +9,10 @@
             var Model = require("mvc-model");
             var View = require("mvc-view");
 
-
+            module.modelClas = [];
+            module.modelObjects = [];
+            module.viewClas = [];
+            module.viewsObjects = [];
             module.config = function (defaultConfig) {
                 if (defaultConfig) {
                     var dcs = [];
@@ -31,6 +34,11 @@
 
                         var viewClass = View.create({model: modelObject, view: view, render: render});
                         var viewObject = viewClass.instance();
+
+                        module.modelClas.push();
+                        module.modelObjects.push();
+                        module.viewClas.push(viewClass);
+                        module.viewsObjects.push(viewObject);
                     }
                 }
 
