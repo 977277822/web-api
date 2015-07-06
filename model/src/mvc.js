@@ -5,7 +5,6 @@
 (function () {
     if (define) {
         define("mvc", function (require, exports, module) {
-            var Class = require("mvc-class").Class;
             var Model = require("mvc-model");
             var View = require("mvc-view");
 
@@ -16,10 +15,10 @@
             module.config = function (defaultConfig) {
                 if (defaultConfig) {
                     var dcs = [];
-                    if (typeof defaultConfig == "array") {
+                    if (defaultConfig instanceof Array) {
                         dcs = defaultConfig;
                     }
-                    else if (typeof defaultConfig == "object") {
+                    else if (defaultConfig instanceof Object) {
                         dcs = [defaultConfig];
                     }
                     for (var i = 0, len = dcs.length; i < len; i++) {
