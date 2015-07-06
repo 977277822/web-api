@@ -9,14 +9,22 @@
     <script src="../src/model.js"></script>
     <script src="../src/xjuicer.js"></script>
     <script src="../src/view.js"></script>
+    <script src="../src/mvc.js"></script>
 
     <script>
-        require(["mvc-view"],function(Model){
-            console.log(Model)
-            //var A = Model.create({registerType: "Student", renderData: [{id: 1, name: "zs"}, {id: 2, name: "zs2"}]});
-            //var a = A.instance();
-            //console.log(a.get("id", 1))
+
+
+        require(["mvc"],function(MVC){
+            MVC.config({
+                modelType : "Student",
+                renderData : [{id: 1, name: "zs"}, {id: 2, name: "zs2"}],
+                view : "#tpl",
+                render : "body"
+            });
         })
+    </script>
+    <script type="text/template" id="tpl">
+        test
     </script>
 </head>
 <body>
