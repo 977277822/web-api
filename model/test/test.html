@@ -5,27 +5,34 @@
     <title></title>
 
     <script src="../../kissy-combo/src/kissy/seed.js"></script>
+    <!-- 模块所需加载文件 -->
     <script src="../src/class.js"></script>
     <script src="../src/model.js"></script>
     <script src="../src/xjuicer.js"></script>
     <script src="../src/view.js"></script>
     <script src="../src/mvc.js"></script>
 
+    <!-- 业务处理加载文件 -->
+    <script src="../src/business.js"></script>
+    <!-- 业务数据加载文件 -->
+    <script src="../src/service.js"></script>
+
+
     <script>
-        require(["mvc"],function(MVC){
-            MVC.config([{
-                modelType : "Student",
-                renderData : [{id: 1, name: "zs"}, {id: 2, name: "zs2"}],
-                view : "#tpl",
-                render : "body"
-            }]);
-        })
+        //require(["mvc"],function(MVC){
+         //   MVC.config([{
+         //       modelType : "Student",
+         //       renderData : [{id: 1, name: "zs"}, {id: 2, name: "zs2"}],
+         //       view : "#tpl",
+          //      render : "body"
+          //  }]);
+        //})
+
     </script>
     <script type="text/template" id="tpl">
         test
     </script>
 </head>
 <body>
-<h2>aaaaa</h2>
 </body>
 </html>
