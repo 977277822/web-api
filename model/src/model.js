@@ -5,8 +5,8 @@
 
 (function () {
     if (define) {
-        define("Model", function (require, exports, module) {
-            var Class = require("Class").Class;
+        define("mvc-model", function (require, exports, module) {
+            var Class = require("mvc-class").Class;
             module.stack = [];
             module.create = function (defaultConfig) {
                 if (defaultConfig || typeof defaultConfig == "object") {

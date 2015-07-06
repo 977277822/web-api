@@ -5,14 +5,17 @@
     <title></title>
 
     <script src="../../kissy-combo/src/kissy/seed.js"></script>
-    <script src="../src/Class.js"></script>
-    <script src="../src/Model.js"></script>
+    <script src="../src/class.js"></script>
+    <script src="../src/model.js"></script>
+    <script src="../src/xjuicer.js"></script>
+    <script src="../src/view.js"></script>
 
     <script>
-        require(["Model"],function(Model){
-            var A = Model.create({registerType: "Student", renderData: [{id: 1, name: "zs"}, {id: 2, name: "zs2"}]});
-            var a = A.instance();
-            console.log(a.get("id", 1))
+        require(["mvc-view"],function(Model){
+            console.log(Model)
+            //var A = Model.create({registerType: "Student", renderData: [{id: 1, name: "zs"}, {id: 2, name: "zs2"}]});
+            //var a = A.instance();
+            //console.log(a.get("id", 1))
         })
     </script>
 </head>

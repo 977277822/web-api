@@ -5,7 +5,7 @@
 
 (function () {
     if (define) {
-        define("Class", function (require, exports, module) {
+        define("mvc-class", function (require, exports, module) {
             var hasOwn = Object.prototype.hasOwnProperty;
             var Class = function (proConfig, consConfig) {
                 var pro = {}, cons = {};

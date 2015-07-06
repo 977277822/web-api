@@ -88,6 +88,19 @@ var Model = {}, View = {};
                     __render: defaultConfig.render,
                     render: function () {
                         var that = this, modelType = that.__modelType, view = that.__view, render = that.__render;
+                        if (Model.stack && window.juicer) {
+                            var data = [],html;
+                            for (var i = 0, len = Model.stack.length; i < len; i++) {
+                                var _self = Model.stack[i];
+                                if(_self.__registerType === modelType){
+                                    data.push(_self.__renderData);
+                                }
+                            }
+                            html = juicer(view,data);
+                            console.log(html);
+                        } else {
+                            new Error("juicer template or model is not find");
+                        }
                     },
                     refresh: function () {
                     }
