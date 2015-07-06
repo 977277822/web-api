@@ -3,9 +3,9 @@
  */
 
 
-(function(){
-    if(define){
-        define("mvc-view",function(require, exports, module){
+(function () {
+    if (define) {
+        define("mvc-view", function (require, exports, module) {
             var template = require("mvc-juicer");
             var Class = require("mvc-class").Class;
             var node = require("node");
@@ -17,9 +17,9 @@
                         __view: defaultConfig.view,
                         __render: defaultConfig.render,
                         render: function () {
-                            var that = this, modelType = that.__modelType, view = that.__view, render = that.__render,__renderData = that.__object.__renderData;
+                            var that = this, modelType = that.__modelType, view = that.__view, render = that.__render, __renderData = that.__object.__renderData;
                             if (__renderData && template) {
-                                html = template(view,__renderData);
+                                html = template(view, __renderData);
                                 node.all(render).append(html);
                             } else {
                                 new Error("juicer template or model is not find");

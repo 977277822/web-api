@@ -3,10 +3,10 @@
  */
 
 
-(function(){
-    if(require){
-        require(["app/run"],function(app){
-            app.run([{ id:"1" , name : "2"  } , { id:"3" , name : "4" }]);
+(function () {
+    if (require) {
+        require(["app/run"], function (app) {
+            app.run([{id: "1", name: "2"}, {id: "3", name: "4"}]);
         })
     }
 })()
