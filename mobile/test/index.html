@@ -3,10 +3,28 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="../src/js/mobilebone.js"></script>
-    <link rel="stylesheet" type="text/css" href="../src/css/mobilebone.css">
-    <link rel="stylesheet" type="text/css" href="../src/css/mobilebone.animate.css">
-
+    <script data-main="../src/js/base/default" src="../src/js/base/require.js"></script>
+    <script src="../src/js/base/mobilebone.js"></script>
+    <link rel="stylesheet" href="../src/css/mobilebone.css"/>
+    <script>
+        (function () {
+            if (require) {
+                require.config({
+                    paths: {
+                        "backbone": "backbone",
+                        "jquery": "jquery",
+                        "mobilebone": "mobilebone",
+                        "iscroll": "iscroll"
+                    }
+                });
+            }
+        })();
+    </script>
+    <script>
+        require(["mobilebone"], function (Mobilebone) {
+            Mobilebone.init();
+        })
+    </script>
     <style>
         .header, .footer, .content {
             position: absolute;
@@ -79,21 +97,22 @@
 <body>
 
 <div id="page" class="page">
-    <!-- 头部固定区域 -->
+    <ul>
+        <li><a href="test.html">点击进入一个头尾固定的页面</a></li>
+    </ul>
+
+</div>
+<div id="page" class="page">
     <div class="header">
         <a href="test.html">分类</a>
-        <a href="#pageHome">搜索</a>
-        <a href="#pageHome">消息</a>
+        <a href="#page">搜索</a>
+        <a href="#page">消息</a>
     </div>
-    <!-- 显示区域 -->
-    <div id="container" class="content">
-
-    </div>
-    <!-- 底部固定区域 -->
+    <div id="container" class="content"></div>
     <div class="footer">
-        <h4><a href="#page" class="active">首页</a></h4>
-        <h4><a href="test.html" data-rel="auto">购物车</a></h4>
-        <h4><a href="#content3" data-rel="auto">我的蔚蓝</a></h4>
+        <h4><a href="test.html">首页</a></h4>
+        <h4><a href="#content2">购物车</a></h4>
+        <h4><a href="#content3">我的蔚蓝</a></h4>
     </div>
 </div>
 
