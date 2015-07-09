@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../src/js/mobilebone.js"></script>
+    <link rel="stylesheet" type="text/css" href="../src/css/mobilebone.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/mobilebone.animate.css">
+
+    <style>
+        .header, .footer, .content {
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+        .header {
+            height: 36px;
+            top: 0;
+            background-color: #eee;
+            color: #fff;
+            z-index: 1;
+        }
+
+        .header > h1 {
+            margin: 0;
+            line-height: 36px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .header > a[data-rel="back"] {
+            position: absolute;
+            padding: 5px 10px;
+            margin: 3px 10px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            background-color: #5e5e5e;
+            font-size: 14px;
+        }
+
+        .footer {
+            height: 40px;
+            bottom: 0;
+            background-color: #fff;
+            z-index: 1;
+            background-color: #eee;
+        }
+
+        .footer > h4 {
+            float: left;
+            width: 25%;
+            margin: 0;
+            text-align: center;
+        }
+
+        .footer a {
+            display: block;
+            line-height: 40px;
+            -webkit-transition: color .35s;
+            transition: color .35s;
+        }
+
+        .footer a.active {
+            color: green;
+        }
+
+        .content {
+            padding: 10px;
+            position: absolute;
+            top: 36px;
+            bottom: 40px;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="page" class="page">
+    <!-- 头部固定区域 -->
+    <div class="header">
+        <a href="test.html">分类</a>
+        <a href="#pageHome">搜索</a>
+        <a href="#pageHome">消息</a>
+    </div>
+    <!-- 显示区域 -->
+    <div id="container" class="content">
+
+    </div>
+    <!-- 底部固定区域 -->
+    <div class="footer">
+        <h4><a href="#page" class="active">首页</a></h4>
+        <h4><a href="test.html" data-rel="auto">购物车</a></h4>
+        <h4><a href="#content3" data-rel="auto">我的蔚蓝</a></h4>
+    </div>
+</div>
+
+</body>
+
+<script>
+</script>
+</html>
