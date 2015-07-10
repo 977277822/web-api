@@ -10,6 +10,7 @@
                 "jquery": "../src/js/base/jquery",
                 "mobilebone": "../src/js/base/mobilebone",
                 "iscroll": "../src/js/base/iscroll",
+                "iscroll-infinite": "../src/js/base/iscroll-infinite",
                 "jmobile": "../src/js/base/jquery.mobile-1.4.5"
             }
         });
