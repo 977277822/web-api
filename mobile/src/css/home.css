@@ -1,0 +1,25 @@
+
+
+.footer-button {
+    border: none;
+}
+
+.footer-button:active {
+    background: none;
+}
+
+.wl-scan-code {
+    left: 0;
+}
+
+.wl-search {
+    margin-left: 10%;
+    width: 100%;
+    left: 0;
+    text-align: center;;
+}
+
+.wl-msg {
+    position: absolute;
+    right: 0;
+}
