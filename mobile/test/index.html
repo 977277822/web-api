@@ -1,62 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html class="ui-mobile ui-loading">
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script data-main="../src/js/base/default" src="../src/js/base/require.js"></script>
     <link rel="stylesheet" href="../src/css/jquery.mobile-1.4.5.css"/>
-    <script>
-        (function () {
-            if (require) {
-                require.config({
-                    paths: {
-                        "backbone": "backbone",
-                        "jquery": "jquery",
-                        "mobilebone": "mobilebone",
-                        "iscroll": "iscroll",
-                        "jmobile": "jquery.mobile-1.4.5"
-                    }
-                });
-            }
-        })();
-    </script>
-    <script>
-        require(["jmobile"], function () {
-        })
-    </script>
+    <script src="../src/js/base/require.js"></script>
+    <script src="../src/js/base/config.js"></script>
+    <style>
+        .ui-loader-default {
+            display: block;
+        }
+
+        .footer-button {
+            display: inline-block;
+            float: left;
+            width: 33%;
+            text-align: center;
+        }
+    </style>
 
     <style>
         .footer-button {
             border: none;
         }
-        .footer-button:active{
-            background:none;
+
+        .footer-button:active {
+            background: none;
         }
+
+        .wl-scan-code {
+            left: 0;
+        }
+
+        .wl-search {
+            margin-left: 10%;
+            width: 100%;
+            left: 0;
+            text-align: center;;
+        }
+
+        .wl-msg {
+            position: absolute;
+            right: 0;
+        }
+
+
     </style>
 
 </head>
 <body>
 <div data-role="page" id="home">
-    <div data-role="header">
-        <a href="test.html" data-role="none">首页</a>
+    <div data-role="header" data-position="fixed">
+        <a href="test.html" class="wl-scan-code" data-role="none">扫码</a>
+        <a href="test.html" class="wl-search" data-role="none">搜索</a>
+        <a href="test.html" class="wl-msg" data-role="none">消息</a>
     </div>
     <div data-role="content">
-        <p>Content goes here</p>
+
     </div>
     <div data-role="footer" data-position="fixed">
-
-        <div data-role="navbar" data-role="none">
-            <ul>
-                <li>
-                    <a href="test.html" class="footer-button">首页</a>
-                </li>
-                <li>
-                    <a href="test.html" class="footer-button" >首页</a>
-                </li>
-                <li>
-                    <a href="test.html" class="footer-button">首页</a></li>
-            </ul>
-        </div>
+        <div class="footer-button"><a href="test.html" data-role="none">首页</a></div>
+        <div class="footer-button"><a href="test.html" data-role="none">购物车</a></div>
+        <div class="footer-button"><a href="test.html" data-role="none">我的蔚蓝</a></div>
     </div>
 </div>
 
