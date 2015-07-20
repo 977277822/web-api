@@ -8,6 +8,7 @@
             paths: {
                 "backbone": "../src/js/base/backbone",
                 "underscore": "../src/js/base/underscore",
+                "juicer": "../src/js/base/juicer",
                 "jquery": "../src/js/base/jquery",
                 "mobilebone": "../src/js/base/mobilebone",
                 "iscroll": "../src/js/base/iscroll",

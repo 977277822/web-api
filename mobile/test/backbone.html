@@ -11,34 +11,66 @@
     <script src="../src/js/base/config.js"></script>
 
     <script>
-        require(["backbone"], function (Backbone) {
+        App = {}, Models = {}, App.Models = Models;
+        require(["backbone", "juicer"], function (Backbone, juicer) {
+
+            var Item = Backbone.Model.extend({
+                defaults: []
+            });
+
+            var List = Backbone.Collection.extend({
+                model: Item,
+                url : "iscroll.json"
+            });
+
+            var ListItem = Backbone.View.extend({
+                tagName: "li",
+                initialize: function () {
+                    _.bindAll(this, "render");
+                },
+                render: function () {
+                    console.log(this.model)
+                    $(this.el).html('<span>' + this.model.get('name') + ' ' + this.model.get('id') + '</span>');
+                    return this;
+                }
+            });
+
             var ListView = Backbone.View.extend({
                 el: $("#home"),
-                events : {
+                events: {
                     'click button#add': 'addItem'
                 },
                 initialize: function () {
                     _.bindAll(this, "render", "addItem");
+                    this.collection = new List();
+                    this.collection.bind("add", this.appendItem);
                     this.counter = 0;
                     this.render();
                 },
                 render: function () {
-                    $(this.el).append("<button id='add'  data-role='none'>Add list item</button>");
+                    $(this.el).append("<button id='add'>Add list item</button>");
                     $(this.el).append("<ul> </ul>");
                 },
-                addItem : function(){
-                    this.counter++;
-                    $('ul', this.el).append("<li>hello world"+this.counter+"</li>");
+                addItem: function () {
+                    this.collection.fetch();
+                    console.log(this.collection.model)
+                },
+                appendItem: function (item) {
+                    var itemView = new ListItem({
+                        model: item
+                    });
+                    $('ul', this.el).append(itemView.render().el);
                 }
             });
-            $(document).ready(function(){
+            $(document).ready(function () {
                 var list = new ListView();
+                console.log(list)
             })
 
         })
     </script>
 </head>
 <body>
-    <div data-role="page" id="home"></div>
+<div data-role="page" id="home"></div>
 </body>
 </html>
