@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../src/css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" href="../src/css/base.css"/>
+    <link rel="stylesheet" href="../src/css/home.css"/>
+
+    <script src="../src/js/base/require.js"></script>
+    <script src="../src/js/base/config.js"></script>
+
+    <script>
+        require(["backbone"], function (Backbone) {
+            var ListView = Backbone.View.extend({
+                el: $("#home"),
+                events : {
+                    'click button#add': 'addItem'
+                },
+                initialize: function () {
+                    _.bindAll(this, "render", "addItem");
+                    this.counter = 0;
+                    this.render();
+                },
+                render: function () {
+                    $(this.el).append("<button id='add'  data-role='none'>Add list item</button>");
+                    $(this.el).append("<ul> </ul>");
+                },
+                addItem : function(){
+                    this.counter++;
+                    $('ul', this.el).append("<li>hello world"+this.counter+"</li>");
+                }
+            });
+            $(document).ready(function(){
+                var list = new ListView();
+            })
+
+        })
+    </script>
+</head>
+<body>
+    <div data-role="page" id="home"></div>
+</body>
+</html>

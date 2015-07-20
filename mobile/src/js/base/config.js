@@ -7,17 +7,17 @@
         require.config({
             paths: {
                 "backbone": "../src/js/base/backbone",
+                "underscore": "../src/js/base/underscore",
                 "jquery": "../src/js/base/jquery",
                 "mobilebone": "../src/js/base/mobilebone",
                 "iscroll": "../src/js/base/iscroll",
-                "iscroll-infinite": "../src/js/base/iscroll-infinite",
                 "jmobile": "../src/js/base/jquery.mobile-1.4.5"
             }
         });
 
-        require(["jmobile"], function () {
+        require(["jmobile"], function (jm) {
             $(document).on("pagebeforecreate",function(){
-                $.mobile.loading('show', {
+                jm.loading('show', {
                     text: '加载中...', //加载器中显示的文字
                     textVisible: false, //是否显示文字
                     theme:"a",        //加载器主题样式a-e
@@ -25,7 +25,7 @@
                 });
             });
             $(document).on("pageinit",function(){
-                $(".ui-loader-default").hide();
+                jm.loading('hide');
             });
             $(document).on("pageloadfailed",function(){
 

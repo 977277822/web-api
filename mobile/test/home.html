@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="ui-mobile ui-loading">
+<html>
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
@@ -14,13 +14,16 @@
 
     <script>
         require(["jquery"], function ($) {
+            $.ready(function(){
+                console.log(1)
+            })
         })
     </script>
 </head>
 <body>
 <div data-role="page" id="home">
     <div data-role="header" data-position="fixed">
-        <a href="test.html" class="wl-scan-code" data-role="none">扫码</a>
+        <a href="test1.html" class="wl-scan-code" data-role="none">扫码</a>
         <a href="test.html" class="wl-search" data-role="none">搜索</a>
         <a href="test.html" class="wl-msg" data-role="none">消息</a>
     </div>
