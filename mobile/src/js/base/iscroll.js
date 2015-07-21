@@ -2002,8 +2002,11 @@ Indicator.prototype = {
 
 IScroll.utils = utils;
 
-if ( typeof module != 'undefined' && module.exports ) {
-	module.exports = IScroll;
+if (typeof define === 'function' && define.amd){
+	define(function(require,module,exports){
+		module.IScroll = IScroll;
+		return module.IScroll;
+	})
 } else {
 	window.IScroll = IScroll;
 }
