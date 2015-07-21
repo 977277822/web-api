@@ -10,15 +10,103 @@
     <script src="../src/js/base/require.js"></script>
     <script src="../src/js/base/config.js"></script>
 
+    <style type="text/css">
+
+
+        .viewport {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            margin: 0 auto;
+            background: #444;
+            overflow: hidden;
+        }
+
+        .wrapper {
+            width: 200px;
+            height: 240px;
+            margin: 0 auto;
+        }
+
+        .scroller {
+            position: absolute;
+            z-index: 1;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            width:100%;
+            height: 240px;
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-text-size-adjust: none;
+            -moz-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            -o-text-size-adjust: none;
+            text-size-adjust: none;
+            background-color: #444;
+        }
+
+
+
+        .indicator {
+            position: relative;
+            width: 110px;
+            height: 20px;
+            margin: 10px auto;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUGCDYztyDUJgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAGFBMVEUAAADNzc3Nzc3Nzc3Nzc3Nzc3Nzc3///8aWwwLAAAABnRSTlMAX5Ks3/nRD0HIAAAAAWJLR0QHFmGI6wAAAFtJREFUGFdjYGBgEHYNMWRAAJE0IHCEc5nSwEABxleD8JOgXMY0KBCA8FlgfAcIXwzGT4TwzWD8ZAjfDcZPgfDDYPxU7Hx09ejmoduH7h5096L7B8O/6OGBGl4APYg8TQ0XAScAAAAASUVORK5CYII=);
+        }
+
+        .dotty {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            background: #777;
+        }
+
+    </style>
 
     <script>
-        require(["iscroll"],function(_iscroll){
-            console.log(_iscroll)
+        var myScroll;
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        require(["iscroll","jquery"],function(IScroll,$){
+            $(document).ready(function(){
+                myScroll = new IScroll('.wrapper', {
+                    scrollX: true,
+                    scrollY: false,
+                    momentum: false,
+                    snap: true,
+                    snapSpeed: 400,
+                    keyBindings: true,
+                    indicators: {
+                        el: $('.indicator').get(0),
+                        resize: false
+                    }
+                });
+            })
         })
     </script>
 
 </head>
 <body>
+<div class="viewport">
+    <div class="wrapper">
+        <div class="scroller">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+    </div>
+</div>
 
+<div class="indicator">
+    <div class="dotty"></div>
+</div>
 </body>
 </html>
