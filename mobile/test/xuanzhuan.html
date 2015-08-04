@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../src/js/base/jquery.js"></script>
+</head>
+<style>
+    .parent{
+        display: block;
+        position: absolute;
+        top: 500px;
+        left: 500px;
+        width: 500px;
+        height: 500px;
+    }
+    .children{
+        display: block;
+        position: absolute;
+        width: 100px;
+        height: 100px;
+    }
+    .children .img{
+        position: absolute;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        var s = 360/6;
+        $(".children").each(function(index){
+            var v = s * (index + 1);
+            $(this).attr("style","transform: rotate("+v+"deg);")
+            $(this).find(".img").attr("style","transform: rotate("+ (360 - v)+"deg);")
+        });
+        $(".children").each(function(){
+            var left = $(this).offset().left
+            var top = $(this).offset().top;
+        })
+    });
+</script>
+<body>
+    <div class="parent">
+        <did class="children">
+            <div class="img">1</div>
+        </did>
+        <did class="children">
+            <div class="img">2</div>
+        </did>
+        <did class="children">
+            <div class="img">3</div>
+        </did>
+        <did class="children">
+            <div class="img">4</div>
+        </did>
+        <did class="children">
+            <div class="img">5</div>
+        </did>
+        <did class="children">
+            <div class="img">6</div>
+        </did>
+    </div>
+
+</body>
+</html>
