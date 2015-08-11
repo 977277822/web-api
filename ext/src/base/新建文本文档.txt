@@ -1,4 +1,4 @@
 <link rel="stylesheet" type="text/css" href="../../resources/css/ext-neptune.css" />
-	    <script type="text/javascript" src="../../ext-all.js"></script>
-		<script type="text/javascript" src="all-classes.js"></script>
-	    <script type="text/javascript" src="../../ext-neptune.js"></script>
+<script type="text/javascript" src="../../ext-all.js"></script>
+<script type="text/javascript" src="all-classes.js"></script>
+<script type="text/javascript" src="../../ext-neptune.js"></script>

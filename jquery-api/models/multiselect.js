@@ -22,7 +22,6 @@
         ".model-multiselect-pop-node:hover": "border: 1px solid #0099FF;border-radius: 5px;box-shadow: 0px 0px 5px #0099FF;",
         ".model-multiselect-pop-node-click": "background: #FFFFCC;",
         ".model-multiselect-count": "position: relative;top: -8px;right: -8px;border: 1px solid #CCFFFF;border-radius: 30px;font-size: 12px;background: #CCFFFF;box-shadow: 0px 0px 5px #CCFFFF;padding: 3px 5px 3px 5px;"
-
     };
 
     var Constant = {
