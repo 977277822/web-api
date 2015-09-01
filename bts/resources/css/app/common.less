@@ -1,27 +1,66 @@
+/**
+* 通用手型样式
+*/
+.cursor-pointer {
+  cursor: pointer;
+}
 
+/**
+* 通用取消控件鼠标单击外边框
+*/
+.outline-none {
+  outline: none;
+}
+
+/**
+* 面板头部图标默认样式
+*/
 .panel-header-icon {
   float: right;
   margin-right: 10px;
 }
 
+/**
+* 面板底部通用样式
+*/
 .panel-footer-align {
   text-align: center;
   font-size: 12px;
-  cursor: pointer;
+  .cursor-pointer;
 }
-
+/**
+* 面板选中样式
+*/
 .panel-primary {
+  .cursor-pointer;
   color: #fff;
   background-color: #337ab7;
   border-color: #337ab7;
 }
 
-.panel:focus {
-  outline: none;
-  .panel-heading {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #337ab7;
+/**
+* 面板
+*/
+.panel {
+  .outline-none;
+}
 
+/**
+* 面板获取焦点
+*/
+
+.panel:focus {
+  .panel-heading {
+    .panel-primary;
   }
 }
+
+/**
+* 面板鼠标移入
+*/
+.panel:hover {
+  .panel-heading {
+    .panel-primary;
+  }
+}
+
