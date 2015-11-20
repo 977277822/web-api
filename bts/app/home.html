@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="../resources/css/base/bootstrap.min.css" rel="stylesheet">
+    <script src="../resources/js/base/jquery.min.js"></script>
+    <script src="../resources/js/base/bootstrap.min.js"></script>
+    <script src="../resources/js/base/angular-1.3.9.min.js"></script>
+    <script>
+        (function () {
+            angular.module("myApp", []).controller("CartController", function ($scope) {
+                $scope.items = [
+                    {title: "Pain pots", quantity: 8, price: 3.95},
+                    {title: "Polka dots", quantity: 17, price: 12.95},
+                    {title: "Pebbles", quantity: 5, price: 6.95}
+                ];
+
+                $scope.remove = function (index) {
+                    $scope.items.splice(index, 1);
+                }
+            }).controller("StartUpController", function ($scope) {
+                $scope.funding = {startingEstimate: 0};
+                $scope.computeNeeded = function () {
+                    $scope.needed = $scope.funding.startingEstimate * 10;
+                }
+                $scope.$watch("funding.startingEstimate",$scope.computeNeeded);
+            }).controller("StudentListController",function($scope){
+                $scope.isError = true;
+                $scope.studentName = "";
+                $scope.students = [
+                    {name : "Mary" ,id : "1"},
+                    {name : "Jack" ,id : "2"},
+                    {name : "Jill" ,id : "3"}
+                ];
+                $scope.insertStudent = function(){
+                    $scope.students.push({ name : $scope.studentName , id : $scope.students.length })
+                    $scope.studentName = "";
+                }
+            });
+        })();
+    </script>
+    <style>
+        .error{
+            background-color: red;
+        }
+        .warning{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body class="container-fluid">
+<nav>header</nav>
+<section class="row" ng-controller="CartController">
+    <section class="col-xs-12"><h1>Your Order</h1></section>
+    <section class="col-xs-12" ng-repeat="item in items">
+        <span ng-bind="item.title | currency"></span>
+        <input ng-model="item.quantity"/>
+        <span ng-bind="item.price | currency"></span>
+        <span ng-bind="item.price * item.quantity | currency"></span>
+        <button ng-click="remove($index)">remove</button>
+    </section>
+    <form ng-controller="StartUpController">
+        String : <input ng-change="computeNeeded()" ng-model="funding.startingEstimate"/>
+        <p ng-bind="needed"></p>
+    </form>
+    <section class="row" ng-controller="StudentListController">
+        <ul>
+            <li ng-class="{error : isError , warning : isWarning}" ng-repeat="student in students">
+                <a href="/student/view/{{student.id}}" ng-bind="student.name"></a>
+            </li>
+        </ul>
+        <input ng-model="studentName"/>
+        <button ng-click="insertStudent()">insertStudent</button>
+    </section>
+</section>
+<footer>footer</footer>
+</body>
+</html>

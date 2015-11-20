@@ -4,6 +4,7 @@
 
 (function () {
     var Dome = {
+        $ : jQuery,
         /**
          * 模型类
          * @constructor
@@ -70,11 +71,23 @@
         cevents: {},
         model: null,   //对应的数据模型
         url: "",       //数据模型对应的url
-        sysc: true,    //默认异步加载数据
+        async: true,    //默认异步加载数据
         fetch: function (type, callback) {
             //ajax加载数据
-            console.log(this.url)
-            this.ctrigger("fetch", callback);
+            this.ajaxLoading(function(){
+                this.ctrigger("fetch", callback);
+            });
+        },
+        ajaxLoading : function(callback){
+            var that = this;
+            Dome.$.ajax({
+                url : that.url,
+                type : "post",
+                async : that.async || true,
+                success : function(content){
+                    that.model.data = Dome.$.parseJSON(content);
+                }
+            });
         },
         save: function () {
             //同步数据
@@ -99,6 +112,7 @@
         ctrigger: function (event, callback) {
             if (this.cevents[event]) {
                 this.cevents[event](this.model);
+                callback(this.model);
             }
         }
     });
