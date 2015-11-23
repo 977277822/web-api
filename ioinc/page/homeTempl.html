@@ -1,0 +1,30 @@
+<ui-view ng-view="homeTempl">
+    <div class="bar bar-header">
+        <button class="button button-clear">Left</button>
+        <a class="title" ui-sref="project">Title</a>
+        <button class="button button-clear">Right</button>
+    </div>
+    <ion-content>
+        <ion-list ng-controller="myCtrl">
+            <div ng-repeat="item in items">
+                <ion-item class="item-stable"
+                          ng-click="toggleGroup(group)"
+                          ng-class="{active: isGroupShown(group)}">
+                    <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+                    &nbsp;
+                    Group {{group.name}}
+                </ion-item>
+                <ion-item class="item-accordion"
+                          ng-repeat="item in group.items"
+                          ng-show="isGroupShown(group)">
+                    {{item}}
+                </ion-item>
+            </div>
+        </ion-list>
+    </ion-content>
+    <div class="bar bar-footer">
+        <button class="button button-clear">Left</button>
+        <div class="title">Title</div>
+        <button class="button button-clear">Right</button>
+    </div>
+</ui-view>

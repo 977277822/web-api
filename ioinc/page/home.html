@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="home">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title></title>
+    <link href="../resouces/css/ionic.min.css" rel="stylesheet">
+    <script src="../resouces/js/ionic.bundle.min.js"></script>
+    <style>
+
+    </style>
+
+</head>
+<body>
+    <div ng-controller="appCtrl" ui-view class="{{pageClass}}"></div>
+</body>
+<script>
+    var app = angular.module("home",["ui.router","ionic","ngAnimate"]);
+    /**
+     * 模板加载配置
+     */
+    app.run(['$rootScope', '$state', '$stateParams',"$ionicLoading",
+        function($rootScope, $state, $stateParams,$ionicLoading) {
+            $rootScope.$state = $state;
+            $rootScope.$stateParams = $stateParams;
+            $rootScope.$on('$stateChangeStart', function(){
+                $ionicLoading.show({
+                    content: '',
+                    animation: 'fade-in',
+                    showBackdrop: true,
+                    maxWidth: 200,
+                    showDelay: 0
+                });
+            });
+            $rootScope.$on('$stateChangeSuccess', function(){
+                setTimeout(function(){
+                    $ionicLoading.hide();
+                },200);
+            })
+        }
+    ]);
+    app.controller("myCtrl",function($scope){
+        $scope.items = [
+            { name : "1" },
+            { name : "2" },
+            { name : "3" },
+            { name : "4" },
+            { name : "5" },
+            { name : "6" },
+            { name : "7" },
+            { name : "8" },
+            { name : "9" },
+            { name : "10" },
+            { name : "11" },
+            { name : "12" },
+            { name : "1" },
+            { name : "2" },
+            { name : "3" },
+            { name : "4" },
+            { name : "5" },
+            { name : "6" },
+            { name : "7" },
+            { name : "8" },
+            { name : "9" },
+            { name : "10" },
+            { name : "11" },
+            { name : "12" }
+        ];
+    });
+    app.controller("appCtrl",function($scope){
+        $scope.pageClass = "aaa";
+    });
+    app.config(function($stateProvider, $urlRouterProvider){
+        $stateProvider.state("project",{
+            class : "ng-enter",
+            url : "/project",
+            templateUrl : "other.html",
+            controller : "mainController"
+        });
+    });
+
+    app.config(function($stateProvider, $urlRouterProvider){
+        $stateProvider.state("homeTempl",{
+            url : "/homeTempl",
+            templateUrl : "homeTempl.html",
+            controller : "mainController"
+        });
+    });
+    app.controller("mainController",function($stateParams){
+
+    });
+</script>
+</html>
