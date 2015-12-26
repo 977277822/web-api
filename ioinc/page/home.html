@@ -6,13 +6,11 @@
     <title></title>
     <link href="../resouces/css/ionic.min.css" rel="stylesheet">
     <script src="../resouces/js/ionic.bundle.min.js"></script>
-    <style>
 
-    </style>
 
 </head>
 <body>
-    <div ng-controller="appCtrl" ui-view class="{{pageClass}}"></div>
+    <div ng-controller="appCtrl" ui-view></div>
 </body>
 <script>
     var app = angular.module("home",["ui.router","ionic","ngAnimate"]);
@@ -68,11 +66,9 @@
         ];
     });
     app.controller("appCtrl",function($scope){
-        $scope.pageClass = "aaa";
     });
     app.config(function($stateProvider, $urlRouterProvider){
         $stateProvider.state("project",{
-            class : "ng-enter",
             url : "/project",
             templateUrl : "other.html",
             controller : "mainController"
