@@ -1,64 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
     <script src="../src/js/base/jquery.js"></script>
+    <link href="../src/css/ionic.min.css" rel="stylesheet">
+    <script src="../src/js/base/ionic.bundle.min.js"></script>
 </head>
 <style>
+    html , body{
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+    body{
+        background : url(../img/sky.jpg) no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
     .parent{
         display: block;
         position: absolute;
-        top: 500px;
+        top: 400px;
         left: 500px;
-        width: 500px;
+        width: 1088px;
         height: 500px;
     }
     .children{
         display: block;
         position: absolute;
-        width: 100px;
-        height: 100px;
+        width: 1000px;
+        height: 300px;
+        opacity: 0;
     }
     .children .img{
         position: absolute;
     }
+    .userimg{
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border : 3px solid transparent;
+    }
+    .btn{
+        position: absolute;
+        top: 780px;
+        z-index: 9999;
+        width: 300px;
+        height: 40px;
+        opacity: 0;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        color: white;
+        border: 1px solid;
+        border-radius: 6px;
+    }
+    .selected{
+        border: 3px solid transparent;
+    }
+    .bigImg{
+        width: 400px;
+        height: 400px;
+        position: absolute;
+        top: 280px;
+        border-radius: 10px;
+    }
+    .disableImg{
+        opacity: 0.6;
+        border: 5px solid;
+    }
 </style>
 <script>
     $(document).ready(function(){
-        var s = 360/6;
+        //居中显示
+        center();
+        //头像位置
+        point();
+        //开始
+        btn();
+        //空格响应按钮事件
+        blankSpace();
+    });
+    var app = angular.module("myApp",["ui.router","ionic","ngAnimate"]);
+    var data = [
+        { "name" : "1" , "img" : "1" },
+        { "name" : "2" , "img" : "1" },
+        { "name" : "3" , "img" : "1" },
+        { "name" : "4" , "img" : "1" },
+        { "name" : "5" , "img" : "1" },
+        { "name" : "6" , "img" : "1" },
+        { "name" : "7" , "img" : "1" },
+        { "name" : "8" , "img" : "1" },
+        { "name" : "9" , "img" : "1" },
+        { "name" : "10" , "img" : "1" },
+        { "name" : "11" , "img" : "1" },
+        { "name" : "12" , "img" : "1" },
+        { "name" : "13" , "img" : "1" },
+        { "name" : "14" , "img" : "1" },
+        { "name" : "15" , "img" : "1" },
+        { "name" : "16" , "img" : "1" },
+        { "name" : "17" , "img" : "1" },
+        { "name" : "18" , "img" : "1" },
+        { "name" : "19" , "img" : "1" },
+        { "name" : "20" , "img" : "1" },
+        { "name" : "21" , "img" : "1" },
+        { "name" : "22" , "img" : "1" },
+        { "name" : "23" , "img" : "1" },
+        { "name" : "24" , "img" : "1" },
+        { "name" : "25" , "img" : "1" },
+        { "name" : "26" , "img" : "1" }
+    ];
+    app.controller("myCtrl",function($scope){
+        $scope.items = data;
+    });
+
+    var inter;
+    function btn(){
+        $(document).on("click",".btn",function(){
+            if($(this).hasClass("btn-disable")) return;
+            if($(this).hasClass("stop")){
+                //停止旋转
+                stopRotate(inter);
+            }else{
+                //旋转
+                inter = rotate();
+            }
+        });
+    }
+
+    //空格响应按钮事件
+    function blankSpace(){
+        $(document).on("keydown",function(e){
+            if(e.keyCode == 32 || e.keyCode == 13){
+                $(".btn").trigger("click");
+            }
+        });
+    }
+
+    //停止旋转
+    function stopRotate(inter){
+        clearInterval(inter);
+        $(".btn").text("继续").removeClass("stop");
+        $(".selected").addClass("disableImg").removeClass("selected").parents(".children").remove();
+    }
+
+
+    //旋转
+    function rotate(){
+        $(".btn").text("暂停").addClass("stop");
+        var index = 0;
+        var len = $(".userimg").length;
+        if(len == 0) return;
+        if($(".selected").length > 0){
+            index = parseInt($(".selected").attr("data-index"));
+            if(index >= len){ index = 0; }
+        }
+
+        var speed = 20;
+        var inter = setInterval(function(){
+            $(".selected").removeClass("selected");
+            var t = $($(".userimg")[index]),dataIndex = parseInt(t.attr("data-index"));
+            t.addClass("selected");
+            $(".bigImg").attr("src","../img/"+(dataIndex)+".jpg");
+            index ++;
+            if(index >= len){ index = 0; }
+        },speed);
+        return inter;
+    }
+    /**
+     * 居中
+     */
+    function center(){
+        $(".parent").offset({ left :  ($("body").width() - 1000) / 2});
+        $(".btn").offset({ left :  ($("body").width() - $(".btn").width()) / 2});
+        $(".bigImg").offset({ left :  ($("body").width() - $(".bigImg").width()) / 2});
+    }
+    //渐变显示图片
+    function shadowImg(){
+        var index = 0;
+        var inteval = setInterval(function(){
+            $($(".children")[index]).animate({opacity : 1});
+            index ++ ;
+            if(index > $(".children").length){
+                clearInterval(inteval);
+                //显示按钮
+                $(".btn").removeClass("btn-disable").addClass("btn-enable").animate({opacity : 1});
+            }
+        },100);
+    }
+
+    /**
+     * 旋转位置
+     */
+    function point(){
+        var s = 360 / data.length;
         $(".children").each(function(index){
             var v = s * (index + 1);
             $(this).attr("style","transform: rotate("+v+"deg);")
             $(this).find(".img").attr("style","transform: rotate("+ (360 - v)+"deg);")
         });
         $(".children").each(function(){
-            var left = $(this).offset().left
+            var left = $(this).offset().left;
             var top = $(this).offset().top;
-        })
-    });
+        });
+        //渐变显示
+        shadowImg();
+
+    }
 </script>
-<body>
+<body ng-controller="myCtrl">
     <div class="parent">
-        <did class="children">
-            <div class="img">1</div>
-        </did>
-        <did class="children">
-            <div class="img">2</div>
-        </did>
-        <did class="children">
-            <div class="img">3</div>
-        </did>
-        <did class="children">
-            <div class="img">4</div>
-        </did>
-        <did class="children">
-            <div class="img">5</div>
-        </did>
-        <did class="children">
-            <div class="img">6</div>
+        <did class="children" ng-repeat="item in items">
+            <div class="img">
+                <img data-index="{{$index + 1}}" class="userimg" src="../img/{{item.name}}.jpg">
+            </div>
         </did>
     </div>
-
+    <div class="btn btn-disable">开始</div>
+    <img class="bigImg" src="../img/1.jpg">
 </body>
 </html>
